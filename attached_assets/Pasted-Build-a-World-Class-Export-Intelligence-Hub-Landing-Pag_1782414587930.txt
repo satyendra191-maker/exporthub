@@ -1,0 +1,456 @@
+Build a World-Class "Export Intelligence Hub" Landing Page
+Objective
+
+Design and develop a premium, mobile-first, ultra-fast, fully responsive landing page named:
+
+Export Intelligence Hub
+Your One-Stop Gateway to India's Complete Export Ecosystem
+
+This landing page should serve as a centralized dashboard containing the 10 most important Indian Government and Export Organization websites, enabling exporters, manufacturers, traders, MSMEs, startups, and students to access every essential export resource from a single location.
+
+The design should feel like a blend of Apple, Google, Stripe, Notion, and India's Digital Public Infrastructure—clean, modern, colorful, lightweight, and highly professional.
+
+Theme
+
+Light Theme Only
+
+Primary Colors
+
+White
+Soft Blue
+Emerald Green
+Light Orange
+Navy accents
+Light Grey backgrounds
+
+Avoid:
+
+Dark backgrounds
+Black cards
+Poor contrast
+Small fonts
+Design Principles
+Mobile-first
+Responsive for every screen
+WCAG accessibility compliant
+Fast loading
+SEO optimized
+PWA ready
+Touch-friendly
+Glassmorphism (subtle)
+Smooth animations
+Rounded cards
+Premium shadows
+Sticky navigation
+Scroll animations
+Back-to-top button
+Search bar
+Category filters
+Dark mode toggle (optional)
+Hero Section
+
+Large heading:
+
+Export Intelligence Hub
+
+Subtitle:
+
+Everything an Indian Exporter Needs in One Place
+
+Description:
+
+Research markets, register your business, analyze trade statistics, explore government schemes, understand customs procedures, find buyers, and grow your exports—all from one centralized platform.
+
+Buttons:
+
+• Explore Resources
+• Start Export Journey
+
+Hero Illustration
+
+Global trade
+Shipping containers
+World map
+Indian exporters
+Analytics dashboard
+
+Search Feature
+
+Real-time search across all websites.
+
+Search by
+
+IEC
+DGFT
+Flour
+APEDA
+Brass
+Export
+Customs
+Buyer
+Market
+Tariff
+Website Cards
+
+Each website appears as a beautiful premium card.
+
+Each card contains:
+
+Logo/Icon
+
+Website Name
+
+Official URL
+
+Purpose
+
+Why it is important
+
+Who should use it
+
+Key Features
+
+Benefits
+
+Quick Facts
+
+Launch Website button
+
+Bookmark button
+
+Share button
+
+Open in new tab
+
+Copy Link
+
+Official badge
+
+Government badge
+
+1. NIRYAT Portal
+
+Importance
+
+India's official export analytics platform.
+
+Useful For
+
+Export trends
+Country analysis
+State exports
+Commodity exports
+Growth analysis
+District export data
+
+Best For
+
+Market Research
+
+2. DGFT
+
+Importance
+
+Official Foreign Trade Portal.
+
+Useful For
+
+IEC Registration
+Export Licenses
+FTP
+RoDTEP
+EPCG
+Advance Authorization
+Notifications
+
+Best For
+
+Export Compliance
+
+3. ODOP
+
+Importance
+
+Discover district-wise export products.
+
+Useful For
+
+Cluster development
+Local manufacturing
+Government support
+Product identification
+
+Best For
+
+Manufacturers
+
+4. Indian Trade Portal
+
+Importance
+
+International market intelligence.
+
+Useful For
+
+Tariffs
+HS Codes
+Country Regulations
+SPS
+TBT
+FTAs
+
+Best For
+
+International Research
+
+5. TradeStat
+
+Importance
+
+Official trade statistics.
+
+Useful For
+
+HS Code exports
+Imports
+Country-wise trade
+Commodity trends
+
+Best For
+
+Trade Analytics
+
+6. FIEO
+
+Importance
+
+India's apex export organization.
+
+Useful For
+
+Buyer Seller Meets
+Training
+Export Documentation
+Trade Delegations
+Export Guidance
+
+Best For
+
+New Exporters
+
+7. Export Promotion Councils
+
+Importance
+
+Industry-specific export promotion.
+
+Useful For
+
+Trade fairs
+Buyer databases
+Export incentives
+Industry reports
+
+Best For
+
+Sector-specific exporters
+
+8. APEDA
+
+Importance
+
+Food export authority.
+
+Useful For
+
+Flour
+Rice
+Fruits
+Vegetables
+Processed Foods
+RCMC
+Export Standards
+
+Best For
+
+Food Exporters
+
+9. ICEGATE
+
+Importance
+
+Indian Customs Portal.
+
+Useful For
+
+Shipping Bills
+Customs Clearance
+Bill of Entry
+GST
+Duty Payment
+
+Best For
+
+Export Operations
+
+10. Invest India
+
+Importance
+
+Investment and manufacturing support.
+
+Useful For
+
+Sector reports
+Manufacturing
+Logistics
+Government incentives
+Investment opportunities
+
+Best For
+
+Manufacturers & Investors
+
+Comparison Table
+
+Create a responsive comparison table showing:
+
+Website
+Primary Purpose
+Best For
+Registration Required
+Government Authority
+Export Stage
+Free/Paid
+Mobile Friendly
+Official Website
+Export Journey Timeline
+
+Step 1
+
+Choose Product
+
+↓
+
+ODOP
+
+↓
+
+TradeStat
+
+↓
+
+NIRYAT
+
+↓
+
+Indian Trade Portal
+
+↓
+
+DGFT
+
+↓
+
+APEDA / EPC
+
+↓
+
+ICEGATE
+
+↓
+
+Find Buyers
+
+↓
+
+Export Successfully
+
+Export Readiness Checklist
+
+Include interactive checkboxes for:
+
+IEC
+GST
+PAN
+Bank Account
+RCMC
+APEDA Registration
+Product Standards
+Packaging
+HS Code
+Buyer
+Shipping Line
+CHA
+Insurance
+Documentation
+Payment Terms
+
+Progress bar updates dynamically.
+
+Useful Downloads
+
+Provide downloadable templates:
+
+Commercial Invoice
+Packing List
+Proforma Invoice
+Certificate of Origin Checklist
+Shipping Bill Checklist
+Export Readiness Checklist
+AI Export Assistant
+
+Floating chatbot capable of answering:
+
+Which website should I visit?
+How do I get an IEC?
+Which country imports wheat flour?
+What is an HS Code?
+Which portal helps me find tariffs?
+How do I claim export benefits?
+Dashboard Widgets
+
+Display quick metrics such as:
+
+Total Government Websites
+Export Categories
+Export Schemes
+Trade Resources
+Market Research Tools
+Customs Services
+Footer
+
+Include:
+
+Quick Links
+Export Journey
+Government Resources
+FAQs
+Contact
+Disclaimer
+Privacy Policy
+Feedback
+Last Updated
+Version Number
+Technical Requirements
+Next.js (App Router)
+React
+TypeScript
+Tailwind CSS
+shadcn/ui
+Framer Motion
+Lucide Icons
+PWA Support
+SEO Metadata
+Open Graph
+Structured Data (JSON-LD)
+Lazy Loading
+Lighthouse Score ≥ 95
+Accessibility Score ≥ 95
+Mobile Performance ≥ 95
+Zero TypeScript errors
+Zero ESLint errors
+Production-ready code
+Final Goal
+
+Deliver a premium, enterprise-grade, mobile-first "Export Intelligence Hub" that centralizes the 10 most important Indian export websites into a single, intuitive dashboard. The platform should clearly explain the importance, purpose, key features, benefits, and ideal use cases for each portal while allowing users to launch the official websites with one click, making it an indispensable daily resource for every Indian exporter.
