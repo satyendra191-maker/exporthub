@@ -273,7 +273,6 @@ export function generateCOOChecklist(): string {
     ["GSTIN", CO.gstin || ""],
     ["Registered Office Address", `${CO.addr1}, ${CO.addr2}`],
     ["Contact Person & Designation", ""],
-    ["Email / Phone", `${CO.email} / ${CO.phone}`],
     ["RCMC Number (if applicable)", ""],
   ].map(([l, v]) => `<div class="checklist-item"><div class="check-box"></div><div><strong>${l}:</strong>&nbsp;<span class="prefilled">${v}</span></div></div>`).join("")}
 
