@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { portals } from "@/lib/data";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Check, X } from "lucide-react";
+import { Check, X, Phone, Mail } from "lucide-react";
 
 export function ComparisonTable() {
   return (
@@ -16,7 +16,7 @@ export function ComparisonTable() {
         >
           <h2 className="text-3xl font-bold tracking-tight mb-4">Portal Comparison Matrix</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            A quick reference guide to understand which portal to use at what stage of your export journey.
+            A quick reference guide to understand which portal to use at what stage of your export journey — including official support contacts.
           </p>
         </motion.div>
 
@@ -31,7 +31,7 @@ export function ComparisonTable() {
             <Table>
               <TableHeader className="bg-primary/5">
                 <TableRow className="hover:bg-primary/5">
-                  <TableHead className="w-[200px] font-semibold text-primary sticky left-0 bg-primary/5 shadow-[1px_0_0_0_hsl(var(--border))] z-10">Portal Name</TableHead>
+                  <TableHead className="w-[170px] font-semibold text-primary sticky left-0 bg-primary/5 shadow-[1px_0_0_0_hsl(var(--border))] z-10">Portal Name</TableHead>
                   <TableHead className="font-semibold">Primary Purpose</TableHead>
                   <TableHead className="font-semibold">Best For</TableHead>
                   <TableHead className="font-semibold">Registration</TableHead>
@@ -39,6 +39,13 @@ export function ComparisonTable() {
                   <TableHead className="font-semibold">Export Stage</TableHead>
                   <TableHead className="font-semibold">Cost</TableHead>
                   <TableHead className="font-semibold text-center">Mobile</TableHead>
+                  <TableHead className="font-semibold min-w-[180px]">
+                    <span className="flex items-center gap-1"><Phone className="w-3.5 h-3.5" /> Helpline</span>
+                  </TableHead>
+                  <TableHead className="font-semibold min-w-[220px]">
+                    <span className="flex items-center gap-1"><Mail className="w-3.5 h-3.5" /> Official Email</span>
+                  </TableHead>
+                  <TableHead className="font-semibold">Support Hours</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -62,9 +69,34 @@ export function ComparisonTable() {
                         <Check className="w-4 h-4 text-emerald-500 mx-auto" />
                       ) : portal.mobileFriendly === "Limited" ? (
                         <span className="text-amber-500 text-xs font-bold">LTD</span>
+                      ) : portal.mobileFriendly === "Depends" ? (
+                        <span className="text-amber-400 text-xs font-bold">~</span>
                       ) : (
                         <X className="w-4 h-4 text-destructive mx-auto" />
                       )}
+                    </TableCell>
+                    <TableCell>
+                      <a
+                        href={`tel:${portal.phone.replace(/[^0-9+]/g, "")}`}
+                        className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline whitespace-nowrap"
+                        data-testid={`phone-${portal.id}`}
+                      >
+                        <Phone className="w-3 h-3 shrink-0" />
+                        {portal.phone}
+                      </a>
+                    </TableCell>
+                    <TableCell>
+                      <a
+                        href={`mailto:${portal.email}`}
+                        className="inline-flex items-center gap-1.5 text-sm text-blue-600 hover:underline whitespace-nowrap"
+                        data-testid={`email-${portal.id}`}
+                      >
+                        <Mail className="w-3 h-3 shrink-0" />
+                        {portal.email}
+                      </a>
+                    </TableCell>
+                    <TableCell className="text-xs text-muted-foreground whitespace-nowrap">
+                      {portal.helpdesk}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -72,6 +104,10 @@ export function ComparisonTable() {
             </Table>
           </div>
         </motion.div>
+
+        <p className="text-xs text-muted-foreground text-center mt-4">
+          All phone numbers are official Government of India helplines. Toll-free numbers (1800-xxx) are free from any Indian landline or mobile.
+        </p>
       </div>
     </section>
   );

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ExternalLink, BookmarkPlus, Share2, Copy, ShieldCheck, Globe } from "lucide-react";
+import { ExternalLink, BookmarkPlus, Share2, Copy, ShieldCheck, Globe, Phone, Mail, Clock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
@@ -30,27 +30,32 @@ export function PortalCards({ searchQuery, selectedCategory }: PortalCardsProps)
 
   const filteredPortals = portals.filter(portal => {
     const matchesCategory = selectedCategory === "All" || portal.category === selectedCategory;
-    const matchesSearch = 
+    const matchesSearch =
       portal.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       portal.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      portal.keyFeatures.some(f => f.toLowerCase().includes(searchQuery.toLowerCase()));
+      portal.keyFeatures.some(f => f.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      portal.phone.includes(searchQuery) ||
+      portal.email.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
   const handleCopyLink = (url: string) => {
     navigator.clipboard.writeText(url);
-    toast({
-      title: "Link Copied",
-      description: `Copied ${url} to clipboard.`
-    });
+    toast({ title: "Link Copied", description: `Copied ${url} to clipboard.` });
+  };
+
+  const handleShare = (portal: typeof portals[0]) => {
+    if (navigator.share) {
+      navigator.share({ title: portal.name, text: portal.description, url: portal.url });
+    } else {
+      navigator.clipboard.writeText(portal.url);
+      toast({ title: "Link Copied", description: `${portal.url} copied — share it anywhere.` });
+    }
   };
 
   const container = {
     hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 }
-    }
+    show: { opacity: 1, transition: { staggerChildren: 0.1 } }
   };
 
   const item = {
@@ -64,16 +69,9 @@ export function PortalCards({ searchQuery, selectedCategory }: PortalCardsProps)
         {filteredPortals.length === 0 ? (
           <div className="text-center py-20 text-muted-foreground">
             <p className="text-lg">No portals found matching your criteria.</p>
-            <Button 
-              variant="link" 
-              onClick={() => {}}
-              className="mt-2"
-            >
-              Clear filters
-            </Button>
           </div>
         ) : (
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             variants={container}
             initial="hidden"
@@ -83,13 +81,17 @@ export function PortalCards({ searchQuery, selectedCategory }: PortalCardsProps)
             {filteredPortals.map((portal) => {
               const Icon = portal.icon;
               const colorClass = colorMap[portal.color] || colorMap.blue;
-              
+              const iconBg = colorClass.split(" ")[0];
+              const iconText = colorClass.split(" ")[1];
+              const hoverBorder = colorClass.split(" ").filter(c => c.startsWith("group-hover:border")).join(" ");
+              const hoverShadow = colorClass.split(" ").filter(c => c.startsWith("group-hover:shadow")).join(" ");
+
               return (
                 <motion.div key={portal.id} variants={item}>
-                  <Card className={`h-full flex flex-col rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border-2 bg-card group ${colorClass.split(' ').filter(c => c.startsWith('group-hover:')).join(' ')}`}>
+                  <Card className={`h-full flex flex-col rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border-2 bg-card group ${hoverBorder} ${hoverShadow}`}>
                     <CardHeader className="pb-4">
                       <div className="flex justify-between items-start mb-4">
-                        <div className={`p-3 rounded-xl ${colorClass.split(' ')[0]} ${colorClass.split(' ')[1]}`}>
+                        <div className={`p-3 rounded-xl ${iconBg} ${iconText}`}>
                           <Icon className="w-6 h-6" />
                         </div>
                         <div className="flex gap-2">
@@ -102,24 +104,30 @@ export function PortalCards({ searchQuery, selectedCategory }: PortalCardsProps)
                       <h3 className="text-xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors">
                         {portal.name}
                       </h3>
-                      <p className="text-sm font-medium text-muted-foreground flex items-center gap-1 mt-1">
-                        <Globe className="w-3 h-3" /> {portal.url}
-                      </p>
+                      <a
+                        href={portal.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm font-medium text-muted-foreground flex items-center gap-1 mt-1 hover:text-primary transition-colors"
+                        data-testid={`link-url-${portal.id}`}
+                      >
+                        <Globe className="w-3 h-3" /> {portal.url.replace("https://", "")}
+                      </a>
                     </CardHeader>
-                    
+
                     <CardContent className="flex-grow">
                       <p className="text-sm text-foreground/80 mb-4 h-10 line-clamp-2">
                         {portal.description}
                       </p>
-                      
-                      <Badge className={`mb-4 ${colorClass.split(' ')[0]} ${colorClass.split(' ')[1]} border-none`}>
+
+                      <Badge className={`mb-4 ${iconBg} ${iconText} border-none`}>
                         Best For: {portal.bestFor}
                       </Badge>
 
                       <Accordion type="single" collapsible className="w-full">
                         <AccordionItem value="details" className="border-b-0">
                           <AccordionTrigger className="py-2 text-sm font-medium hover:no-underline hover:text-primary">
-                            View Details
+                            View Details &amp; Contact
                           </AccordionTrigger>
                           <AccordionContent className="text-sm text-muted-foreground space-y-3 pb-2 pt-1">
                             <div>
@@ -137,33 +145,70 @@ export function PortalCards({ searchQuery, selectedCategory }: PortalCardsProps)
                             <div>
                               <strong className="text-foreground">Benefits:</strong> {portal.benefits}
                             </div>
+
+                            <div className="mt-3 pt-3 border-t border-border/50 space-y-2">
+                              <p className="text-xs font-semibold text-foreground uppercase tracking-wide">Official Support</p>
+                              <a
+                                href={`tel:${portal.phone.replace(/[^0-9+]/g, "")}`}
+                                className="flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+                                data-testid={`card-phone-${portal.id}`}
+                              >
+                                <Phone className="w-3.5 h-3.5 shrink-0" />
+                                {portal.phone}
+                              </a>
+                              <a
+                                href={`mailto:${portal.email}`}
+                                className="flex items-center gap-2 text-sm text-blue-600 hover:underline break-all"
+                                data-testid={`card-email-${portal.id}`}
+                              >
+                                <Mail className="w-3.5 h-3.5 shrink-0" />
+                                {portal.email}
+                              </a>
+                              <p className="flex items-center gap-2 text-xs text-muted-foreground">
+                                <Clock className="w-3 h-3 shrink-0" />
+                                {portal.helpdesk}
+                              </p>
+                            </div>
                           </AccordionContent>
                         </AccordionItem>
                       </Accordion>
                     </CardContent>
 
                     <CardFooter className="pt-4 border-t border-border/50 gap-2">
-                      <Button 
-                        className="flex-1 rounded-lg" 
-                        onClick={(e) => {
-                          e.preventDefault();
-                          toast({ title: "Redirecting...", description: `Opening ${portal.url} in a new tab.` });
-                        }}
+                      <Button
+                        className="flex-1 rounded-lg"
+                        onClick={() => window.open(portal.url, "_blank", "noopener,noreferrer")}
                         data-testid={`btn-launch-${portal.id}`}
                       >
                         Launch Website <ExternalLink className="w-4 h-4 ml-2" />
                       </Button>
-                      <Button variant="outline" size="icon" className="rounded-lg shrink-0 text-muted-foreground hover:text-foreground">
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        className="rounded-lg shrink-0 text-muted-foreground hover:text-foreground"
+                        onClick={() => toast({ title: "Bookmarked", description: `${portal.name} saved to bookmarks.` })}
+                        data-testid={`btn-bookmark-${portal.id}`}
+                        title="Bookmark"
+                      >
                         <BookmarkPlus className="w-4 h-4" />
                       </Button>
-                      <Button variant="outline" size="icon" className="rounded-lg shrink-0 text-muted-foreground hover:text-foreground">
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        className="rounded-lg shrink-0 text-muted-foreground hover:text-foreground"
+                        onClick={() => handleShare(portal)}
+                        data-testid={`btn-share-${portal.id}`}
+                        title="Share"
+                      >
                         <Share2 className="w-4 h-4" />
                       </Button>
-                      <Button 
-                        variant="outline" 
-                        size="icon" 
+                      <Button
+                        variant="outline"
+                        size="icon"
                         className="rounded-lg shrink-0 text-muted-foreground hover:text-foreground"
                         onClick={() => handleCopyLink(portal.url)}
+                        data-testid={`btn-copy-${portal.id}`}
+                        title="Copy link"
                       >
                         <Copy className="w-4 h-4" />
                       </Button>

@@ -18,6 +18,9 @@ export type Portal = {
   exportStage: string;
   cost: string;
   mobileFriendly: string;
+  phone: string;
+  email: string;
+  helpdesk: string;
 };
 
 export const categories = [
@@ -34,7 +37,7 @@ export const portals: Portal[] = [
   {
     id: "1",
     name: "NIRYAT Portal",
-    url: "niryat.gov.in",
+    url: "https://niryat.gov.in",
     icon: BarChart3,
     color: "blue",
     category: "Analytics",
@@ -48,12 +51,15 @@ export const portals: Portal[] = [
     authority: "Ministry of Commerce",
     exportStage: "Pre-Export",
     cost: "Free",
-    mobileFriendly: "Yes"
+    mobileFriendly: "Yes",
+    phone: "1800-111-550",
+    email: "helpdesk@dgci.gov.in",
+    helpdesk: "Mon–Fri, 9:30 AM – 6:00 PM"
   },
   {
     id: "2",
     name: "DGFT",
-    url: "dgft.gov.in",
+    url: "https://dgft.gov.in",
     icon: FileText,
     color: "indigo",
     category: "Compliance",
@@ -66,13 +72,16 @@ export const portals: Portal[] = [
     registration: "Mandatory (IEC)",
     authority: "DGFT",
     exportStage: "Registration",
-    cost: "Paid (IEC fee)",
-    mobileFriendly: "Yes"
+    cost: "Paid (IEC ₹500)",
+    mobileFriendly: "Yes",
+    phone: "1800-111-550",
+    email: "helpdesk@dgft.gov.in",
+    helpdesk: "Mon–Fri, 9:00 AM – 5:30 PM"
   },
   {
     id: "3",
     name: "ODOP",
-    url: "odop.gov.in",
+    url: "https://odop.gov.in",
     icon: MapPin,
     color: "orange",
     category: "Market Research",
@@ -86,12 +95,15 @@ export const portals: Portal[] = [
     authority: "DPIIT",
     exportStage: "Product Selection",
     cost: "Free",
-    mobileFriendly: "Yes"
+    mobileFriendly: "Yes",
+    phone: "011-23062261",
+    email: "odop-dpiit@gov.in",
+    helpdesk: "Mon–Fri, 9:30 AM – 6:00 PM"
   },
   {
     id: "4",
     name: "Indian Trade Portal",
-    url: "indiantradeportal.in",
+    url: "https://indiantradeportal.in",
     icon: Globe,
     color: "teal",
     category: "Market Research",
@@ -105,12 +117,15 @@ export const portals: Portal[] = [
     authority: "FIEO",
     exportStage: "Market Selection",
     cost: "Free",
-    mobileFriendly: "Yes"
+    mobileFriendly: "Yes",
+    phone: "011-46013888",
+    email: "support@indiantradeportal.in",
+    helpdesk: "Mon–Fri, 9:00 AM – 6:00 PM"
   },
   {
     id: "5",
     name: "TradeStat",
-    url: "tradestat.commerce.gov.in",
+    url: "https://tradestat.commerce.gov.in",
     icon: TrendingUp,
     color: "emerald",
     category: "Analytics",
@@ -124,12 +139,15 @@ export const portals: Portal[] = [
     authority: "Ministry of Commerce",
     exportStage: "Research",
     cost: "Free",
-    mobileFriendly: "No"
+    mobileFriendly: "No",
+    phone: "011-23063900",
+    email: "tradestat@nic.in",
+    helpdesk: "Mon–Fri, 9:30 AM – 5:30 PM"
   },
   {
     id: "6",
     name: "FIEO",
-    url: "fieo.org",
+    url: "https://fieo.org",
     icon: Building2,
     color: "purple",
     category: "Compliance",
@@ -143,12 +161,15 @@ export const portals: Portal[] = [
     authority: "FIEO",
     exportStage: "Execution",
     cost: "Paid (Membership)",
-    mobileFriendly: "Yes"
+    mobileFriendly: "Yes",
+    phone: "011-26153040",
+    email: "fieo@fieo.org",
+    helpdesk: "Mon–Sat, 9:30 AM – 6:00 PM"
   },
   {
     id: "7",
     name: "Export Promotion Councils",
-    url: "eparakrama.commerce.gov.in",
+    url: "https://eparakrama.commerce.gov.in",
     icon: Award,
     color: "pink",
     category: "Compliance",
@@ -162,12 +183,15 @@ export const portals: Portal[] = [
     authority: "Various EPCs",
     exportStage: "Execution",
     cost: "Paid (Membership)",
-    mobileFriendly: "Depends"
+    mobileFriendly: "Depends",
+    phone: "011-23063900",
+    email: "epc@commerce.gov.in",
+    helpdesk: "Mon–Fri, 9:30 AM – 5:30 PM"
   },
   {
     id: "8",
     name: "APEDA",
-    url: "apeda.gov.in",
+    url: "https://apeda.gov.in",
     icon: Leaf,
     color: "green",
     category: "Food & Agri",
@@ -181,12 +205,15 @@ export const portals: Portal[] = [
     authority: "Ministry of Commerce",
     exportStage: "Certification",
     cost: "Paid (Registration)",
-    mobileFriendly: "Yes"
+    mobileFriendly: "Yes",
+    phone: "1800-111-175",
+    email: "helpdesk@apeda.gov.in",
+    helpdesk: "Mon–Fri, 9:30 AM – 5:30 PM"
   },
   {
     id: "9",
     name: "ICEGATE",
-    url: "icegate.gov.in",
+    url: "https://icegate.gov.in",
     icon: Shield,
     color: "red",
     category: "Customs",
@@ -200,12 +227,15 @@ export const portals: Portal[] = [
     authority: "CBIC",
     exportStage: "Shipping",
     cost: "Free",
-    mobileFriendly: "Limited"
+    mobileFriendly: "Limited",
+    phone: "1800-3010-1000",
+    email: "helpdesk@icegate.gov.in",
+    helpdesk: "24 × 7 Helpdesk"
   },
   {
     id: "10",
     name: "Invest India",
-    url: "investindia.gov.in",
+    url: "https://investindia.gov.in",
     icon: TrendingUp,
     color: "amber",
     category: "Investment",
@@ -219,6 +249,9 @@ export const portals: Portal[] = [
     authority: "DPIIT",
     exportStage: "Setup",
     cost: "Free",
-    mobileFriendly: "Yes"
+    mobileFriendly: "Yes",
+    phone: "011-23048155",
+    email: "invest@investindia.org.in",
+    helpdesk: "Mon–Fri, 9:00 AM – 6:00 PM"
   }
 ];
