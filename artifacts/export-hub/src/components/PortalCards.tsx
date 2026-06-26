@@ -13,16 +13,16 @@ interface PortalCardsProps {
 }
 
 const colorMap: Record<string, string> = {
-  blue: "bg-blue-50 text-blue-600 border-blue-200 group-hover:border-blue-400 group-hover:shadow-blue-100",
+  blue:   "bg-blue-50 text-blue-600 border-blue-200 group-hover:border-blue-400 group-hover:shadow-blue-100",
   indigo: "bg-indigo-50 text-indigo-600 border-indigo-200 group-hover:border-indigo-400 group-hover:shadow-indigo-100",
   orange: "bg-orange-50 text-orange-600 border-orange-200 group-hover:border-orange-400 group-hover:shadow-orange-100",
-  teal: "bg-teal-50 text-teal-600 border-teal-200 group-hover:border-teal-400 group-hover:shadow-teal-100",
-  emerald: "bg-emerald-50 text-emerald-600 border-emerald-200 group-hover:border-emerald-400 group-hover:shadow-emerald-100",
+  teal:   "bg-teal-50 text-teal-600 border-teal-200 group-hover:border-teal-400 group-hover:shadow-teal-100",
+  emerald:"bg-emerald-50 text-emerald-600 border-emerald-200 group-hover:border-emerald-400 group-hover:shadow-emerald-100",
   purple: "bg-purple-50 text-purple-600 border-purple-200 group-hover:border-purple-400 group-hover:shadow-purple-100",
-  pink: "bg-pink-50 text-pink-600 border-pink-200 group-hover:border-pink-400 group-hover:shadow-pink-100",
-  green: "bg-green-50 text-green-600 border-green-200 group-hover:border-green-400 group-hover:shadow-green-100",
-  red: "bg-red-50 text-red-600 border-red-200 group-hover:border-red-400 group-hover:shadow-red-100",
-  amber: "bg-amber-50 text-amber-600 border-amber-200 group-hover:border-amber-400 group-hover:shadow-amber-100"
+  pink:   "bg-pink-50 text-pink-600 border-pink-200 group-hover:border-pink-400 group-hover:shadow-pink-100",
+  green:  "bg-green-50 text-green-600 border-green-200 group-hover:border-green-400 group-hover:shadow-green-100",
+  red:    "bg-red-50 text-red-600 border-red-200 group-hover:border-red-400 group-hover:shadow-red-100",
+  amber:  "bg-amber-50 text-amber-600 border-amber-200 group-hover:border-amber-400 group-hover:shadow-amber-100",
 };
 
 export function PortalCards({ searchQuery, selectedCategory }: PortalCardsProps) {
@@ -30,37 +30,40 @@ export function PortalCards({ searchQuery, selectedCategory }: PortalCardsProps)
 
   const filteredPortals = portals.filter(portal => {
     const matchesCategory = selectedCategory === "All" || portal.category === selectedCategory;
+    const q = searchQuery.toLowerCase();
     const matchesSearch =
-      portal.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      portal.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      portal.keyFeatures.some(f => f.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      portal.phone.includes(searchQuery) ||
-      portal.email.toLowerCase().includes(searchQuery.toLowerCase());
+      portal.name.toLowerCase().includes(q) ||
+      portal.description.toLowerCase().includes(q) ||
+      portal.keyFeatures.some(f => f.toLowerCase().includes(q)) ||
+      portal.phone.includes(q) ||
+      portal.email.toLowerCase().includes(q);
     return matchesCategory && matchesSearch;
   });
 
   const handleCopyLink = (url: string) => {
-    navigator.clipboard.writeText(url);
-    toast({ title: "Link Copied", description: `Copied ${url} to clipboard.` });
+    navigator.clipboard.writeText(url).then(() => {
+      toast({ title: "Link Copied", description: `${url} copied to clipboard.` });
+    });
   };
 
   const handleShare = (portal: typeof portals[0]) => {
     if (navigator.share) {
-      navigator.share({ title: portal.name, text: portal.description, url: portal.url });
+      navigator.share({ title: portal.name, text: portal.description, url: portal.url }).catch(() => null);
     } else {
-      navigator.clipboard.writeText(portal.url);
-      toast({ title: "Link Copied", description: `${portal.url} copied — share it anywhere.` });
+      navigator.clipboard.writeText(portal.url).then(() => {
+        toast({ title: "Link Copied", description: `${portal.url} copied — share it anywhere.` });
+      });
     }
   };
 
   const container = {
     hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { staggerChildren: 0.1 } }
+    show: { opacity: 1, transition: { staggerChildren: 0.1 } },
   };
 
   const item = {
     hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 }
+    show: { opacity: 1, y: 0 },
   };
 
   return (
@@ -81,10 +84,11 @@ export function PortalCards({ searchQuery, selectedCategory }: PortalCardsProps)
             {filteredPortals.map((portal) => {
               const Icon = portal.icon;
               const colorClass = colorMap[portal.color] || colorMap.blue;
-              const iconBg = colorClass.split(" ")[0];
-              const iconText = colorClass.split(" ")[1];
-              const hoverBorder = colorClass.split(" ").filter(c => c.startsWith("group-hover:border")).join(" ");
-              const hoverShadow = colorClass.split(" ").filter(c => c.startsWith("group-hover:shadow")).join(" ");
+              const parts = colorClass.split(" ");
+              const iconBg   = parts[0];
+              const iconText = parts[1];
+              const hoverBorder = parts.filter(c => c.startsWith("group-hover:border")).join(" ");
+              const hoverShadow = parts.filter(c => c.startsWith("group-hover:shadow")).join(" ");
 
               return (
                 <motion.div key={portal.id} variants={item}>
@@ -111,7 +115,8 @@ export function PortalCards({ searchQuery, selectedCategory }: PortalCardsProps)
                         className="text-sm font-medium text-muted-foreground flex items-center gap-1 mt-1 hover:text-primary transition-colors"
                         data-testid={`link-url-${portal.id}`}
                       >
-                        <Globe className="w-3 h-3" /> {portal.url.replace("https://", "")}
+                        <Globe className="w-3 h-3" />
+                        {portal.url.replace("https://", "")}
                       </a>
                     </CardHeader>
 
@@ -175,23 +180,24 @@ export function PortalCards({ searchQuery, selectedCategory }: PortalCardsProps)
                     </CardContent>
 
                     <CardFooter className="pt-4 border-t border-border/50 gap-2">
-                      <Button
-                        className="flex-1 rounded-lg"
-                        onClick={() => window.open(portal.url, "_blank", "noopener,noreferrer")}
-                        data-testid={`btn-launch-${portal.id}`}
-                      >
-                        Launch Website <ExternalLink className="w-4 h-4 ml-2" />
+                      {/* Use asChild so the button renders as a real <a> tag — avoids popup blocker */}
+                      <Button asChild className="flex-1 rounded-lg" data-testid={`btn-launch-${portal.id}`}>
+                        <a href={portal.url} target="_blank" rel="noopener noreferrer">
+                          Launch Website <ExternalLink className="w-4 h-4 ml-2" />
+                        </a>
                       </Button>
+
                       <Button
                         variant="outline"
                         size="icon"
                         className="rounded-lg shrink-0 text-muted-foreground hover:text-foreground"
-                        onClick={() => toast({ title: "Bookmarked", description: `${portal.name} saved to bookmarks.` })}
+                        onClick={() => toast({ title: "Bookmarked", description: `${portal.name} saved.` })}
                         data-testid={`btn-bookmark-${portal.id}`}
                         title="Bookmark"
                       >
                         <BookmarkPlus className="w-4 h-4" />
                       </Button>
+
                       <Button
                         variant="outline"
                         size="icon"
@@ -202,6 +208,7 @@ export function PortalCards({ searchQuery, selectedCategory }: PortalCardsProps)
                       >
                         <Share2 className="w-4 h-4" />
                       </Button>
+
                       <Button
                         variant="outline"
                         size="icon"

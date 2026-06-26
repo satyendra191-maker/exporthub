@@ -1,7 +1,10 @@
-import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+function scrollTo(id: string) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+}
 
 export function Navbar() {
   return (
@@ -15,18 +18,46 @@ export function Navbar() {
             </span>
           </div>
         </Link>
+
         <nav className="hidden md:flex items-center gap-6">
-          <a href="#resources" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Resources</a>
-          <a href="#journey" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Journey</a>
-          <a href="#tools" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Tools</a>
-          <a href="#about" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">About</a>
+          {[
+            { label: "Resources", id: "tools" },
+            { label: "Journey", id: "journey" },
+            { label: "Comparison", id: "resources" },
+            { label: "About", id: "about" },
+          ].map(({ label, id }) => (
+            <button
+              key={id}
+              onClick={() => scrollTo(id)}
+              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors bg-transparent border-none cursor-pointer"
+              data-testid={`nav-link-${id}`}
+            >
+              {label}
+            </button>
+          ))}
         </nav>
+
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon" className="hidden sm:flex" data-testid="button-nav-search">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="hidden sm:flex"
+            onClick={() => {
+              scrollTo("tools");
+              setTimeout(() => {
+                const input = document.querySelector<HTMLInputElement>('[data-testid="input-search-portals"]');
+                input?.focus();
+              }, 500);
+            }}
+            data-testid="button-nav-search"
+            aria-label="Search"
+          >
             <Search className="h-5 w-5" />
-            <span className="sr-only">Search</span>
           </Button>
-          <Button data-testid="button-nav-cta">
+          <Button
+            onClick={() => scrollTo("tools")}
+            data-testid="button-nav-cta"
+          >
             Start Exporting &rarr;
           </Button>
         </div>
