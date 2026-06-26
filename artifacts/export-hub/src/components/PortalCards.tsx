@@ -35,6 +35,9 @@ export function PortalCards({ searchQuery, selectedCategory }: PortalCardsProps)
       portal.name.toLowerCase().includes(q) ||
       portal.description.toLowerCase().includes(q) ||
       portal.keyFeatures.some(f => f.toLowerCase().includes(q)) ||
+      portal.exportStage.toLowerCase().includes(q) ||
+      portal.cost.toLowerCase().includes(q) ||
+      portal.authority.toLowerCase().includes(q) ||
       portal.phone.includes(q) ||
       portal.email.toLowerCase().includes(q);
     return matchesCategory && matchesSearch;

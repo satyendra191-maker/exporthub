@@ -16,23 +16,38 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
+  function filterByStage(stage: string) {
+    setSearchQuery(stage);
+    setSelectedCategory("All");
+    document.getElementById("tools")?.scrollIntoView({ behavior: "smooth" });
+  }
+
+  function filterByCategory(cat: string) {
+    setSelectedCategory(cat);
+    setSearchQuery("");
+    document.getElementById("tools")?.scrollIntoView({ behavior: "smooth" });
+  }
+
   return (
     <div className="min-h-screen bg-background font-sans text-foreground">
       <Navbar />
       <main>
         <HeroSection />
         <DashboardWidgets />
-        <SearchAndFilter 
-          searchQuery={searchQuery} 
-          setSearchQuery={setSearchQuery} 
-          selectedCategory={selectedCategory} 
-          setSelectedCategory={setSelectedCategory} 
+        <SearchAndFilter
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
         />
-        <PortalCards 
-          searchQuery={searchQuery} 
-          selectedCategory={selectedCategory} 
+        <PortalCards
+          searchQuery={searchQuery}
+          selectedCategory={selectedCategory}
         />
-        <ComparisonTable />
+        <ComparisonTable
+          onFilterByStage={filterByStage}
+          onFilterByCategory={filterByCategory}
+        />
         <ExportJourney />
         <ReadinessChecklist />
         <UsefulDownloads />
