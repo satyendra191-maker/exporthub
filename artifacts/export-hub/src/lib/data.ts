@@ -21,6 +21,9 @@ export type Portal = {
   phone: string;
   email: string;
   helpdesk: string;
+  headTitle: string;
+  headOfficePhone: string;
+  whatsapp: string;
 };
 
 export const categories = [
@@ -54,7 +57,10 @@ export const portals: Portal[] = [
     mobileFriendly: "Yes",
     phone: "1800-111-550",
     email: "helpdesk@dgci.gov.in",
-    helpdesk: "Mon–Fri, 9:30 AM – 6:00 PM"
+    helpdesk: "Mon–Fri, 9:30 AM – 6:00 PM",
+    headTitle: "Director General, DGCI & S",
+    headOfficePhone: "033-22481821",
+    whatsapp: "N/A"
   },
   {
     id: "2",
@@ -76,7 +82,10 @@ export const portals: Portal[] = [
     mobileFriendly: "Yes",
     phone: "1800-111-550",
     email: "helpdesk@dgft.gov.in",
-    helpdesk: "Mon–Fri, 9:00 AM – 5:30 PM"
+    helpdesk: "Mon–Fri, 9:00 AM – 5:30 PM",
+    headTitle: "Director General of Foreign Trade",
+    headOfficePhone: "011-23061562",
+    whatsapp: "7290800101"
   },
   {
     id: "3",
@@ -98,7 +107,10 @@ export const portals: Portal[] = [
     mobileFriendly: "Yes",
     phone: "011-23062261",
     email: "odop-dpiit@gov.in",
-    helpdesk: "Mon–Fri, 9:30 AM – 6:00 PM"
+    helpdesk: "Mon–Fri, 9:30 AM – 6:00 PM",
+    headTitle: "Secretary, DPIIT",
+    headOfficePhone: "011-23062239",
+    whatsapp: "N/A"
   },
   {
     id: "4",
@@ -120,7 +132,10 @@ export const portals: Portal[] = [
     mobileFriendly: "Yes",
     phone: "011-46013888",
     email: "support@indiantradeportal.in",
-    helpdesk: "Mon–Fri, 9:00 AM – 6:00 PM"
+    helpdesk: "Mon–Fri, 9:00 AM – 6:00 PM",
+    headTitle: "Director General, FIEO",
+    headOfficePhone: "011-26153040",
+    whatsapp: "N/A"
   },
   {
     id: "5",
@@ -142,7 +157,10 @@ export const portals: Portal[] = [
     mobileFriendly: "No",
     phone: "011-23063900",
     email: "tradestat@nic.in",
-    helpdesk: "Mon–Fri, 9:30 AM – 5:30 PM"
+    helpdesk: "Mon–Fri, 9:30 AM – 5:30 PM",
+    headTitle: "Secretary, Dept. of Commerce",
+    headOfficePhone: "011-23062153",
+    whatsapp: "N/A"
   },
   {
     id: "6",
@@ -164,7 +182,10 @@ export const portals: Portal[] = [
     mobileFriendly: "Yes",
     phone: "011-26153040",
     email: "fieo@fieo.org",
-    helpdesk: "Mon–Sat, 9:30 AM – 6:00 PM"
+    helpdesk: "Mon–Sat, 9:30 AM – 6:00 PM",
+    headTitle: "Director General, FIEO",
+    headOfficePhone: "011-26153025",
+    whatsapp: "9810553405"
   },
   {
     id: "7",
@@ -186,7 +207,10 @@ export const portals: Portal[] = [
     mobileFriendly: "Depends",
     phone: "011-23063900",
     email: "epc@commerce.gov.in",
-    helpdesk: "Mon–Fri, 9:30 AM – 5:30 PM"
+    helpdesk: "Mon–Fri, 9:30 AM – 5:30 PM",
+    headTitle: "Jt. Secretary (EP), Dept. of Commerce",
+    headOfficePhone: "011-23062525",
+    whatsapp: "N/A"
   },
   {
     id: "8",
@@ -208,7 +232,10 @@ export const portals: Portal[] = [
     mobileFriendly: "Yes",
     phone: "1800-111-175",
     email: "helpdesk@apeda.gov.in",
-    helpdesk: "Mon–Fri, 9:30 AM – 5:30 PM"
+    helpdesk: "Mon–Fri, 9:30 AM – 5:30 PM",
+    headTitle: "Chairman, APEDA",
+    headOfficePhone: "011-26513204",
+    whatsapp: "9319904406"
   },
   {
     id: "9",
@@ -230,7 +257,10 @@ export const portals: Portal[] = [
     mobileFriendly: "Limited",
     phone: "1800-3010-1000",
     email: "helpdesk@icegate.gov.in",
-    helpdesk: "24 × 7 Helpdesk"
+    helpdesk: "24 × 7 Helpdesk",
+    headTitle: "Chairman, CBIC",
+    headOfficePhone: "011-23370805",
+    whatsapp: "8882111160"
   },
   {
     id: "10",
@@ -252,6 +282,9 @@ export const portals: Portal[] = [
     mobileFriendly: "Yes",
     phone: "011-23048155",
     email: "invest@investindia.org.in",
-    helpdesk: "Mon–Fri, 9:00 AM – 6:00 PM"
+    helpdesk: "Mon–Fri, 9:00 AM – 6:00 PM",
+    headTitle: "CEO, Invest India",
+    headOfficePhone: "011-23048000",
+    whatsapp: "N/A"
   }
 ];

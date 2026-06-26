@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ExternalLink, BookmarkPlus, Share2, Copy, ShieldCheck, Globe, Phone, Mail, Clock } from "lucide-react";
+import { ExternalLink, BookmarkPlus, Share2, Copy, ShieldCheck, Globe, Phone, Mail, Clock, User, MessageCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
@@ -151,8 +151,34 @@ export function PortalCards({ searchQuery, selectedCategory }: PortalCardsProps)
                               <strong className="text-foreground">Benefits:</strong> {portal.benefits}
                             </div>
 
-                            <div className="mt-3 pt-3 border-t border-border/50 space-y-2">
-                              <p className="text-xs font-semibold text-foreground uppercase tracking-wide">Official Support</p>
+                            <div className="mt-3 pt-3 border-t border-border/50 space-y-2.5">
+                              <p className="text-xs font-semibold text-foreground uppercase tracking-wide">Top Authority</p>
+                              <div className="flex items-center gap-2 text-xs text-foreground/80 font-medium bg-primary/5 rounded-lg px-2.5 py-2">
+                                <User className="w-3.5 h-3.5 text-primary shrink-0" />
+                                {portal.headTitle}
+                              </div>
+                              <a
+                                href={`tel:${portal.headOfficePhone.replace(/[^0-9+]/g, "")}`}
+                                className="flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+                                data-testid={`card-head-phone-${portal.id}`}
+                              >
+                                <Phone className="w-3.5 h-3.5 shrink-0" />
+                                {portal.headOfficePhone} <span className="text-xs text-muted-foreground">(Direct)</span>
+                              </a>
+                              {portal.whatsapp !== "N/A" && (
+                                <a
+                                  href={`https://wa.me/91${portal.whatsapp.replace(/[^0-9]/g, "")}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="flex items-center gap-2 text-sm font-medium text-green-600 hover:underline"
+                                  data-testid={`card-whatsapp-${portal.id}`}
+                                >
+                                  <MessageCircle className="w-3.5 h-3.5 shrink-0" />
+                                  {portal.whatsapp} <span className="text-xs text-muted-foreground">(WhatsApp)</span>
+                                </a>
+                              )}
+
+                              <p className="text-xs font-semibold text-foreground uppercase tracking-wide pt-1">Helpdesk</p>
                               <a
                                 href={`tel:${portal.phone.replace(/[^0-9+]/g, "")}`}
                                 className="flex items-center gap-2 text-sm font-medium text-primary hover:underline"
