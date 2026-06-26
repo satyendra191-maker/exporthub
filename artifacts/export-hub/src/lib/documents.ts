@@ -470,3 +470,745 @@ export function generateExportReadinessChecklist(): string {
   <div class="footer">${CO.name} &nbsp;|&nbsp; ${CO.addr1}, ${CO.addr2} &nbsp;|&nbsp; ${CO.phone} &nbsp;|&nbsp; ${CO.email}</div>
   </body></html>`;
 }
+
+/* ─── 7. Bill of Lading (Sea Freight) ─────────────────────────────────────── */
+export function generateBillOfLading(): string {
+  const today = new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Bill of Lading – ${CO.name}</title>
+  <style>${baseStyles}
+  .bl-box { border:2px solid #1e3a5f; padding:12px; border-radius:4px; margin-bottom:14px; }
+  .bl-title { font-size:22px; font-weight:bold; text-align:center; letter-spacing:2px; color:#1e3a5f; margin-bottom:2px; }
+  .bl-sub { text-align:center; font-size:11px; color:#555; margin-bottom:16px; }
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+  </style></head><body>
+  <div class="bl-title">BILL OF LADING</div>
+  <div class="bl-sub">Original — Non-Negotiable / Negotiable (tick applicable) &nbsp;|&nbsp; ${today}</div>
+
+  <div class="two-col">
+    <div>
+      <div class="bl-box">
+        <strong style="color:#1e3a5f;font-size:11px">1. SHIPPER / EXPORTER</strong><br>
+        <span style="color:#1e3a5f;font-weight:600">${CO.name}</span><br>
+        ${CO.addr1}<br>${CO.addr2}<br>
+        Ph: ${CO.phone} &nbsp;|&nbsp; ${CO.email}<br>
+        IEC: ${CO.iec || "_________________"} &nbsp;|&nbsp; GSTIN: ${CO.gstin || "_________________"}
+      </div>
+      <div class="bl-box">
+        <strong style="color:#1e3a5f;font-size:11px">2. CONSIGNEE (or ORDER)</strong><br>
+        <span style="font-size:11px">Name: _________________________________</span><br>
+        Address: _______________________________<br>
+        City / Country: ________________________<br>
+        Phone / Email: _________________________
+      </div>
+      <div class="bl-box">
+        <strong style="color:#1e3a5f;font-size:11px">3. NOTIFY PARTY</strong><br>
+        Name: _________________________________<br>
+        Address: _______________________________<br>
+        Phone / Email: _________________________
+      </div>
+    </div>
+    <div>
+      <div class="bl-box">
+        <strong style="color:#1e3a5f;font-size:11px">4. B/L REFERENCE DETAILS</strong><br>
+        <div class="field"><span class="field-label">B/L Number:</span><span class="field-value"></span></div>
+        <div class="field"><span class="field-label">B/L Date:</span><span class="field-value">${today}</span></div>
+        <div class="field"><span class="field-label">Booking No.:</span><span class="field-value"></span></div>
+        <div class="field"><span class="field-label">Commercial Invoice No.:</span><span class="field-value"></span></div>
+        <div class="field"><span class="field-label">LC / Contract No.:</span><span class="field-value"></span></div>
+        <div class="field"><span class="field-label">Freight Terms:</span><span class="field-value">PREPAID / COLLECT (tick)</span></div>
+      </div>
+      <div class="bl-box">
+        <strong style="color:#1e3a5f;font-size:11px">5. VESSEL & VOYAGE</strong><br>
+        <div class="field"><span class="field-label">Vessel Name:</span><span class="field-value"></span></div>
+        <div class="field"><span class="field-label">Voyage No.:</span><span class="field-value"></span></div>
+        <div class="field"><span class="field-label">Shipping Line:</span><span class="field-value"></span></div>
+        <div class="field"><span class="field-label">Container No.:</span><span class="field-value"></span></div>
+        <div class="field"><span class="field-label">Seal No.:</span><span class="field-value"></span></div>
+        <div class="field"><span class="field-label">Type:</span><span class="field-value">20' / 40' / LCL (tick)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="three-col" style="margin-bottom:14px">
+    <div class="bl-box">
+      <strong style="color:#1e3a5f;font-size:11px">6. PORT OF LOADING</strong><br>
+      Port: ____________________<br>
+      Country: India<br>
+      ETD: ____________________
+    </div>
+    <div class="bl-box">
+      <strong style="color:#1e3a5f;font-size:11px">7. PORT OF DISCHARGE</strong><br>
+      Port: ____________________<br>
+      Country: ________________<br>
+      ETA: ____________________
+    </div>
+    <div class="bl-box">
+      <strong style="color:#1e3a5f;font-size:11px">8. FINAL DESTINATION</strong><br>
+      Place: ___________________<br>
+      Country: ________________<br>
+      Delivery Terms: __________
+    </div>
+  </div>
+
+  <div class="section-title">9. Description of Cargo</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Sr.</th><th>Marks &amp; Nos.</th><th>No. &amp; Kind of Packages</th>
+        <th>Description of Goods</th><th>HS Code</th>
+        <th>Gross Weight (kg)</th><th>Net Weight (kg)</th><th>Measurement (CBM)</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${[1,2,3,4].map(i=>`<tr><td>${i}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`).join("")}
+      <tr class="total-row"><td colspan="5" style="text-align:right">TOTALS</td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <div class="two-col" style="margin-top:14px">
+    <div class="bl-box">
+      <strong style="color:#1e3a5f;font-size:11px">10. FREIGHT &amp; CHARGES</strong><br>
+      <div class="field"><span class="field-label">Ocean Freight:</span><span class="field-value"></span></div>
+      <div class="field"><span class="field-label">THC / Surcharge:</span><span class="field-value"></span></div>
+      <div class="field"><span class="field-label">Documentation Fee:</span><span class="field-value"></span></div>
+      <div class="field"><span class="field-label">Total Freight:</span><span class="field-value"></span></div>
+    </div>
+    <div class="bl-box">
+      <strong style="color:#1e3a5f;font-size:11px">11. DECLARATION</strong><br>
+      <p style="font-size:10px;color:#374151">The goods described herein are received in apparent good order and condition unless otherwise stated. This Bill of Lading is subject to the terms and conditions on the reverse side.</p>
+      <p style="font-size:10px;margin-top:8px">Number of Original B/Ls issued: <strong>_____</strong></p>
+    </div>
+  </div>
+
+  <div class="sign-section">
+    <div class="sign-box">For <strong>${CO.name}</strong><br>Shipper's Signature &amp; Date<br><br><br></div>
+    <div class="sign-box">For Carrier / Shipping Line<br>Authorised Agent Signature<br><br><br></div>
+  </div>
+  <div class="footer">${CO.name} &nbsp;|&nbsp; ${CO.addr1}, ${CO.addr2} &nbsp;|&nbsp; ${CO.phone} &nbsp;|&nbsp; ${CO.email}</div>
+  </body></html>`;
+}
+
+/* ─── 8. Air Waybill (AWB) ─────────────────────────────────────────────────── */
+export function generateAirWaybill(): string {
+  const today = new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Air Waybill – ${CO.name}</title>
+  <style>${baseStyles}
+  .awb-header { background:#1e3a5f; color:#fff; padding:10px 14px; border-radius:4px 4px 0 0; font-size:16px; font-weight:bold; letter-spacing:1px; }
+  .awb-no { text-align:right; font-size:13px; }
+  .iata-box { border:1px solid #d1d5db; padding:8px; font-size:11px; }
+  .three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:10px; }
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
+  </style></head><body>
+  <div style="border:2px solid #1e3a5f;border-radius:4px;overflow:hidden;margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;background:#1e3a5f;color:#fff;padding:10px 14px">
+      <span style="font-size:16px;font-weight:bold;letter-spacing:1px">AIR WAYBILL (AWB)</span>
+      <span style="font-size:11px">Not Negotiable &nbsp;|&nbsp; ${today}</span>
+    </div>
+    <div class="two-col" style="padding:10px;margin-bottom:0">
+      <div>
+        <strong style="font-size:10px;color:#1e3a5f">SHIPPER'S NAME &amp; ADDRESS</strong><br>
+        <span style="color:#1e3a5f;font-weight:600">${CO.name}</span><br>
+        ${CO.addr1}, ${CO.addr2}<br>
+        Ph: ${CO.phone}<br>
+        Email: ${CO.email}<br>
+        IEC: ${CO.iec || "_________________"}
+      </div>
+      <div>
+        <div class="field"><span class="field-label">AWB No.:</span><span class="field-value"></span></div>
+        <div class="field"><span class="field-label">MAWB / HAWB:</span><span class="field-value">MAWB / HAWB (tick)</span></div>
+        <div class="field"><span class="field-label">Airline / IATA Code:</span><span class="field-value"></span></div>
+        <div class="field"><span class="field-label">Date of Issue:</span><span class="field-value">${today}</span></div>
+        <div class="field"><span class="field-label">Place of Issue:</span><span class="field-value"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="iata-box">
+      <strong style="color:#1e3a5f;font-size:10px">CONSIGNEE'S NAME &amp; ADDRESS</strong><br>
+      Name: _________________________________<br>
+      Address: _______________________________<br>
+      City / Country: ________________________<br>
+      Phone: _________________________________<br>
+      Email: _________________________________
+    </div>
+    <div class="iata-box">
+      <strong style="color:#1e3a5f;font-size:10px">AGENT'S IATA CODE / ACCOUNT NO.</strong><br>
+      IATA Code: ___________________________<br>
+      Account No.: _________________________<br>
+      Agent Name: __________________________<br>
+      Address: _____________________________
+    </div>
+  </div>
+
+  <div class="three-col" style="margin-top:10px">
+    <div class="iata-box">
+      <strong style="color:#1e3a5f;font-size:10px">AIRPORT OF DEPARTURE</strong><br>
+      Airport / City: ____________________<br>
+      IATA Code: ________________________<br>
+      Country: India<br>
+      Routing: Direct / Via (tick)
+    </div>
+    <div class="iata-box">
+      <strong style="color:#1e3a5f;font-size:10px">ROUTING &amp; DESTINATION</strong><br>
+      Via (Transit): _____________________<br>
+      To (Final): _______________________<br>
+      Airport Code: _____________________<br>
+      Country: _________________________
+    </div>
+    <div class="iata-box">
+      <strong style="color:#1e3a5f;font-size:10px">FLIGHT DETAILS</strong><br>
+      Flight No.: _______________________<br>
+      Date: _____________________________<br>
+      Carrier: __________________________<br>
+      Freight Class: ____________________
+    </div>
+  </div>
+
+  <div class="section-title" style="margin-top:12px">Goods Description &amp; Rating</div>
+  <table>
+    <thead>
+      <tr>
+        <th>No. of Pieces</th><th>Gross Weight (kg)</th><th>Rate Class</th>
+        <th>Commodity No.</th><th>Chargeable Wt (kg)</th><th>Rate/Charge</th>
+        <th>Total</th><th>Nature &amp; Quantity of Goods (HS Code)</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${[1,2,3].map(i=>`<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`).join("")}
+      <tr class="total-row"><td colspan="6" style="text-align:right">Sub Total</td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <div class="two-col" style="margin-top:10px">
+    <div class="iata-box">
+      <strong style="color:#1e3a5f;font-size:10px">CHARGES SUMMARY</strong><br>
+      <div class="field"><span class="field-label">Weight Charge:</span><span class="field-value"></span></div>
+      <div class="field"><span class="field-label">Valuation Charge:</span><span class="field-value"></span></div>
+      <div class="field"><span class="field-label">Tax:</span><span class="field-value"></span></div>
+      <div class="field"><span class="field-label">Other Charges:</span><span class="field-value"></span></div>
+      <div class="field"><span class="field-label">Total Charges:</span><span class="field-value"></span></div>
+      <div class="field"><span class="field-label">Prepaid / Collect:</span><span class="field-value">PP / CC (tick)</span></div>
+    </div>
+    <div class="iata-box">
+      <strong style="color:#1e3a5f;font-size:10px">SPECIAL INSTRUCTIONS</strong><br>
+      <div style="height:60px"></div>
+      <strong style="color:#1e3a5f;font-size:10px">HANDLING INFORMATION</strong><br>
+      □ Fragile &nbsp; □ Keep Cool &nbsp; □ Perishable &nbsp; □ Dangerous Goods<br>
+      □ Live Animals &nbsp; □ This Way Up &nbsp; □ Other: _______________
+    </div>
+  </div>
+
+  <div style="margin-top:10px;font-size:10px;color:#374151;border:1px solid #d1d5db;padding:8px;border-radius:4px">
+    <strong>Shipper's Certification:</strong> I hereby certify that the particulars on the face hereof are correct and that insofar as any part of the consignment contains dangerous goods, such part is properly described by name and is in proper condition for carriage by air according to applicable Dangerous Goods Regulations.
+  </div>
+
+  <div class="sign-section">
+    <div class="sign-box">For <strong>${CO.name}</strong><br>Shipper's Signature &amp; Date<br><br><br></div>
+    <div class="sign-box">Issuing Carrier / Agent Signature<br><br><br></div>
+  </div>
+  <div class="footer">${CO.name} &nbsp;|&nbsp; ${CO.addr1}, ${CO.addr2} &nbsp;|&nbsp; ${CO.phone} &nbsp;|&nbsp; ${CO.email}</div>
+  </body></html>`;
+}
+
+/* ─── 9. Marine / Cargo Insurance Certificate ─────────────────────────────── */
+export function generateInsuranceCertificate(): string {
+  const today = new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Marine Insurance Certificate – ${CO.name}</title>
+  <style>${baseStyles}</style></head><body>
+  <h1>Marine / Cargo Insurance Certificate</h1>
+  <p class="subtitle">${CO.name} &nbsp;|&nbsp; Original — All Risks Cover</p>
+
+  <div class="header-grid">
+    <div class="header-box">
+      <h3>Insured / Exporter</h3>
+      <div class="field"><span class="field-label">Name:</span><span class="field-value prefilled">${CO.name}</span></div>
+      <div class="field"><span class="field-label">Address:</span><span class="field-value prefilled">${CO.addr1}, ${CO.addr2}</span></div>
+      <div class="field"><span class="field-label">Phone / WA:</span><span class="field-value prefilled">${CO.phone}</span></div>
+      <div class="field"><span class="field-label">Email:</span><span class="field-value prefilled">${CO.email}</span></div>
+      <div class="field"><span class="field-label">IEC No.:</span><span class="field-value">${CO.iec}</span></div>
+    </div>
+    <div class="header-box">
+      <h3>Policy / Certificate Details</h3>
+      <div class="field"><span class="field-label">Policy / Cert No.:</span><span class="field-value"></span></div>
+      <div class="field"><span class="field-label">Date of Issue:</span><span class="field-value">${today}</span></div>
+      <div class="field"><span class="field-label">Insurance Company:</span><span class="field-value"></span></div>
+      <div class="field"><span class="field-label">Agent / Broker:</span><span class="field-value"></span></div>
+      <div class="field"><span class="field-label">Cover Type:</span><span class="field-value">All Risks (ICC-A) / ICC-B / ICC-C</span></div>
+      <div class="field"><span class="field-label">Validity:</span><span class="field-value"></span></div>
+    </div>
+  </div>
+
+  <div class="section-title">Shipment Details</div>
+  <table>
+    <tr><td class="label">Conveyance / Vessel / Airline:</td><td></td><td class="label">Voyage / Flight No.:</td><td></td></tr>
+    <tr><td class="label">Port of Loading:</td><td></td><td class="label">Port of Discharge:</td><td></td></tr>
+    <tr><td class="label">Final Destination:</td><td></td><td class="label">Shipment Date:</td><td></td></tr>
+    <tr><td class="label">B/L or AWB No.:</td><td></td><td class="label">Commercial Invoice No.:</td><td></td></tr>
+  </table>
+
+  <div class="section-title">Cargo Description &amp; Insured Value</div>
+  <table>
+    <thead>
+      <tr><th>Description of Goods</th><th>HS Code</th><th>No. of Packages</th><th>Gross Weight</th><th>Invoice Value</th><th>Insured Value (110%)</th></tr>
+    </thead>
+    <tbody>
+      ${[1,2,3].map(i=>`<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>`).join("")}
+      <tr class="total-row"><td colspan="4" style="text-align:right">Total Insured Sum</td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Risks Covered &amp; Exclusions</div>
+  <table>
+    <tr>
+      <td class="label">Risks Covered:</td>
+      <td>All Risks including theft, pilferage, non-delivery, water damage, fire, explosion as per Institute Cargo Clauses (A)</td>
+    </tr>
+    <tr>
+      <td class="label">War &amp; Strike Cover:</td>
+      <td>□ Included &nbsp; □ Excluded &nbsp; (tick applicable)</td>
+    </tr>
+    <tr>
+      <td class="label">Exclusions:</td>
+      <td>Inherent vice, willful misconduct, ordinary leakage, improper packing unless otherwise agreed</td>
+    </tr>
+    <tr><td class="label">Premium Rate:</td><td></td></tr>
+    <tr><td class="label">Premium Amount:</td><td></td></tr>
+    <tr><td class="label">Deductible / Excess:</td><td></td></tr>
+  </table>
+
+  <div class="section-title">Claims Settlement</div>
+  <table>
+    <tr><td class="label">Claims Payable At:</td><td></td><td class="label">Claims Agent:</td><td></td></tr>
+    <tr><td class="label">Survey Agent:</td><td></td><td class="label">Contact:</td><td></td></tr>
+  </table>
+  <p style="font-size:11px;color:#374151;margin-top:10px">In the event of a claim, immediately notify the nearest Lloyd's agent or the survey agent listed above. Present original certificate, B/L, invoice, packing list, and survey report.</p>
+
+  <div class="sign-section">
+    <div class="sign-box">For <strong>${CO.name}</strong><br>Authorised Signature<br><br><br></div>
+    <div class="sign-box">For Insurance Company<br>Authorised Signatory &amp; Stamp<br><br><br></div>
+  </div>
+  <div class="footer">${CO.name} &nbsp;|&nbsp; ${CO.addr1}, ${CO.addr2} &nbsp;|&nbsp; ${CO.phone} &nbsp;|&nbsp; ${CO.email}</div>
+  </body></html>`;
+}
+
+/* ─── 10. Letter of Credit (LC) Compliance Checklist ──────────────────────── */
+export function generateLCChecklist(): string {
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>LC Checklist – ${CO.name}</title>
+  <style>${baseStyles}</style></head><body>
+  <h1>Letter of Credit — Compliance Checklist</h1>
+  <p class="subtitle">${CO.name} &nbsp;|&nbsp; UCP 600 / ISBP 821 Compliant</p>
+
+  <div class="header-box" style="margin-bottom:16px">
+    <h3>LC Details &amp; Exporter Info</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div>
+        <div class="field"><span class="field-label">Exporter:</span><span class="field-value prefilled">${CO.name}</span></div>
+        <div class="field"><span class="field-label">Address:</span><span class="field-value prefilled">${CO.addr1}, ${CO.addr2}</span></div>
+        <div class="field"><span class="field-label">Phone / WA:</span><span class="field-value prefilled">${CO.phone}</span></div>
+        <div class="field"><span class="field-label">Email:</span><span class="field-value prefilled">${CO.email}</span></div>
+      </div>
+      <div>
+        <div class="field"><span class="field-label">LC Number:</span><span class="field-value"></span></div>
+        <div class="field"><span class="field-label">LC Date:</span><span class="field-value"></span></div>
+        <div class="field"><span class="field-label">Issuing Bank:</span><span class="field-value"></span></div>
+        <div class="field"><span class="field-label">Advising Bank (India):</span><span class="field-value"></span></div>
+        <div class="field"><span class="field-label">Expiry Date &amp; Place:</span><span class="field-value"></span></div>
+        <div class="field"><span class="field-label">LC Type:</span><span class="field-value">Sight / Usance / Deferred (tick)</span></div>
+        <div class="field"><span class="field-label">LC Currency &amp; Amount:</span><span class="field-value"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">1. LC Terms Verification (before shipment)</div>
+  ${[
+    ["LC amount matches Proforma Invoice value", ""],
+    ["Beneficiary name &amp; address exactly as per LC", `${CO.name}, ${CO.addr1}, ${CO.addr2}`],
+    ["Applicant name &amp; address verified with buyer", ""],
+    ["Shipment date / latest shipment date checked", ""],
+    ["Port of loading matches LC requirement", ""],
+    ["Port of discharge / final destination verified", ""],
+    ["Partial shipments — allowed / prohibited (tick)", ""],
+    ["Transhipment — allowed / prohibited (tick)", ""],
+    ["Incoterms in LC match contract (FOB/CIF/etc.)", ""],
+    ["Tolerance on amount: +/- ____% noted", ""],
+    ["Goods description in LC matches invoice description exactly", ""],
+    ["HS Code / Commodity Code verified", ""],
+  ].map(([t, v]) => `<div class="checklist-item"><div class="check-box"></div><div><strong>${t}</strong>${v ? `<br><span class="prefilled" style="font-size:10px">${v}</span>` : ""}</div></div>`).join("")}
+
+  <div class="section-title">2. Documents Required as per LC (check each when prepared)</div>
+  <table>
+    <thead><tr><th>Document</th><th>Copies (Originals + Copies)</th><th>Special LC Requirements</th><th>Ready</th></tr></thead>
+    <tbody>
+      ${[
+        ["Commercial Invoice", "3 originals + 3 copies", "Must show LC No., Incoterms, Unit Price"],
+        ["Full Set Bill of Lading / AWB", "3/3 originals OR Full set", "Consigned to: Order of Issuing Bank"],
+        ["Packing List", "2 originals + 2 copies", "Net / Gross weight per package"],
+        ["Certificate of Origin", "1 original + 1 copy", "DGFT / Chamber / APEDA as specified"],
+        ["Marine Insurance Certificate", "2 originals", "Value: 110% of CIF, All Risks (ICC-A)"],
+        ["Inspection Certificate", "1 original", "SGS / Bureau Veritas or as specified"],
+        ["Phytosanitary / Health Certificate", "1 original", "If agri / food products"],
+        ["Beneficiary's Certificate", "1 original", "Self-declaration as per LC wording"],
+        ["Weight &amp; Measurement Certificate", "1 original", "Port / CHA stamp"],
+        ["Pre-shipment Inspection Report", "1 copy", "If LC mandates third-party inspection"],
+      ].map(([d,c,r]) => `<tr><td>${d}</td><td>${c}</td><td style="font-size:10px;color:#6b7280">${r}</td><td><div class="check-box"></div></td></tr>`).join("")}
+    </tbody>
+  </table>
+
+  <div class="section-title">3. Common Discrepancy Checklist (avoid these errors)</div>
+  ${[
+    "Invoice amount exceeds LC amount without tolerance provision",
+    "Shipment made after the latest shipment date",
+    "Documents presented after the presentation period (usually 21 days from B/L)",
+    "Goods description on invoice does not match LC exactly",
+    "LC number not quoted on documents",
+    "Consignee on B/L not as per LC requirement",
+    "Insurance value insufficient (should be min. 110% CIF)",
+    "Port of loading / discharge differs from LC",
+    "Marks &amp; numbers on B/L don't match packing list",
+    "Signature / seal missing on required documents",
+    "Draft / Bill of Exchange amount or tenor incorrect",
+  ].map(item => `<div class="checklist-item"><div class="check-box"></div><div>${item}</div></div>`).join("")}
+
+  <div class="section-title">4. Presentation to Advising / Negotiating Bank</div>
+  ${[
+    "All original documents collated in correct number of copies",
+    "Documents presented within LC expiry AND presentation period",
+    "Covering letter to bank drafted with full document list",
+    "Bank charges agreed upon",
+    "SWIFT message / Bank confirmation received",
+    "Discrepancies (if any) communicated to buyer for waiver",
+  ].map(item => `<div class="checklist-item"><div class="check-box"></div><div>${item}</div></div>`).join("")}
+
+  <div class="footer">${CO.name} &nbsp;|&nbsp; ${CO.addr1}, ${CO.addr2} &nbsp;|&nbsp; ${CO.phone} &nbsp;|&nbsp; ${CO.email}</div>
+  </body></html>`;
+}
+
+/* ─── 11. GST Letter of Undertaking (LUT) Application ─────────────────────── */
+export function generateLUTApplication(): string {
+  const today = new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+  const fy = (() => { const d = new Date(); const y = d.getFullYear(); return d.getMonth() >= 3 ? `${y}-${y+1}` : `${y-1}-${y}`; })();
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>LUT Application – ${CO.name}</title>
+  <style>${baseStyles}</style></head><body>
+  <h1>GST Letter of Undertaking (LUT)</h1>
+  <p class="subtitle">Form GST RFD-11 — Zero-Rated Supply Without Payment of IGST &nbsp;|&nbsp; Financial Year ${fy}</p>
+
+  <div class="header-box" style="margin-bottom:16px">
+    <h3>Applicant Details</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div>
+        <div class="field"><span class="field-label">Legal Name:</span><span class="field-value prefilled">${CO.name}</span></div>
+        <div class="field"><span class="field-label">Trade Name:</span><span class="field-value prefilled">${CO.name}</span></div>
+        <div class="field"><span class="field-label">Principal Place of Business:</span><span class="field-value prefilled">${CO.addr1}, ${CO.addr2}</span></div>
+        <div class="field"><span class="field-label">Phone / WA:</span><span class="field-value prefilled">${CO.phone}</span></div>
+        <div class="field"><span class="field-label">Email:</span><span class="field-value prefilled">${CO.email}</span></div>
+      </div>
+      <div>
+        <div class="field"><span class="field-label">GSTIN:</span><span class="field-value">${CO.gstin}</span></div>
+        <div class="field"><span class="field-label">PAN:</span><span class="field-value">${CO.pan}</span></div>
+        <div class="field"><span class="field-label">IEC No.:</span><span class="field-label">${CO.iec}</span></div>
+        <div class="field"><span class="field-label">Financial Year:</span><span class="field-value">${fy}</span></div>
+        <div class="field"><span class="field-label">ARN / Reference No.:</span><span class="field-value"></span></div>
+        <div class="field"><span class="field-label">Date of Application:</span><span class="field-value">${today}</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Undertaking / Declaration</div>
+  <p style="font-size:11px;color:#374151;line-height:1.8">
+    I / We, <strong>${CO.name}</strong>, holder of GSTIN: <strong>${CO.gstin || "_________________"}</strong>,
+    having principal place of business at <strong>${CO.addr1}, ${CO.addr2}</strong>,
+    do hereby undertake to:
+  </p>
+  <ol style="font-size:11px;color:#374151;line-height:2;padding-left:20px">
+    <li>Export goods / services within time prescribed under Section 16(3) of IGST Act, 2017.</li>
+    <li>Pay IGST along with applicable interest (18% p.a.) if export not made within prescribed period.</li>
+    <li>Comply with all conditions and restrictions under the CGST Act, 2017 and rules made thereunder.</li>
+    <li>Not avail the drawback of IGST paid on inputs, if any, used in making zero-rated supply.</li>
+    <li>This undertaking is valid for the entire Financial Year <strong>${fy}</strong>.</li>
+  </ol>
+
+  <div class="section-title">Witnesses (Two Required)</div>
+  <table>
+    <thead><tr><th>Details</th><th>Witness 1</th><th>Witness 2</th></tr></thead>
+    <tbody>
+      <tr><td>Full Name</td><td></td><td></td></tr>
+      <tr><td>Occupation</td><td></td><td></td></tr>
+      <tr><td>Address</td><td></td><td></td></tr>
+      <tr><td>PAN / Aadhaar</td><td></td><td></td></tr>
+      <tr><td>Signature</td><td style="height:40px"></td><td style="height:40px"></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Documents to Attach with LUT Application</div>
+  ${[
+    "GSTIN Registration Certificate",
+    "IEC Certificate copy",
+    "PAN Card copy",
+    "Board Resolution / Authority Letter (if company)",
+    "Copy of previous year's LUT (if applicable)",
+    "Self-declaration of no prosecution under GST / Customs",
+    "List of authorized signatories",
+  ].map(item => `<div class="checklist-item"><div class="check-box"></div><div>${item}</div></div>`).join("")}
+
+  <p style="font-size:10px;color:#6b7280;margin-top:12px">File online at: <strong>gst.gov.in → Services → User Services → Furnish Letter of Undertaking (LUT)</strong></p>
+
+  <div class="sign-section">
+    <div class="sign-box">For <strong>${CO.name}</strong><br>Authorised Signatory<br>Name &amp; Designation: ____________<br><br></div>
+    <div class="sign-box">Jurisdictional GST Officer<br>Acknowledgement &amp; Stamp<br><br><br></div>
+  </div>
+  <div class="footer">${CO.name} &nbsp;|&nbsp; ${CO.addr1}, ${CO.addr2} &nbsp;|&nbsp; ${CO.phone} &nbsp;|&nbsp; ${CO.email}</div>
+  </body></html>`;
+}
+
+/* ─── 12. Health & Sanitary Certificate (Food / Agri Exports) ─────────────── */
+export function generateHealthCertificate(): string {
+  const today = new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Health Certificate – ${CO.name}</title>
+  <style>${baseStyles}</style></head><body>
+  <h1>Health / Sanitary Certificate</h1>
+  <p class="subtitle">${CO.name} &nbsp;|&nbsp; For Export of Food / Agricultural Products &nbsp;|&nbsp; Date: ${today}</p>
+  <p style="text-align:center;font-size:10px;color:#555">Issued under the Food Safety &amp; Standards Act 2006 / APEDA Act / FSSAI / Ministry of Agriculture</p>
+
+  <div class="header-grid">
+    <div class="header-box">
+      <h3>Exporter / Manufacturer</h3>
+      <div class="field"><span class="field-label">Name:</span><span class="field-value prefilled">${CO.name}</span></div>
+      <div class="field"><span class="field-label">Address:</span><span class="field-value prefilled">${CO.addr1}, ${CO.addr2}</span></div>
+      <div class="field"><span class="field-label">Phone / WA:</span><span class="field-value prefilled">${CO.phone}</span></div>
+      <div class="field"><span class="field-label">Email:</span><span class="field-value prefilled">${CO.email}</span></div>
+      <div class="field"><span class="field-label">FSSAI Lic. No.:</span><span class="field-value"></span></div>
+      <div class="field"><span class="field-label">APEDA Reg. No.:</span><span class="field-value"></span></div>
+      <div class="field"><span class="field-label">IEC No.:</span><span class="field-value">${CO.iec}</span></div>
+    </div>
+    <div class="header-box">
+      <h3>Certificate Details</h3>
+      <div class="field"><span class="field-label">Certificate No.:</span><span class="field-value"></span></div>
+      <div class="field"><span class="field-label">Date of Issue:</span><span class="field-value">${today}</span></div>
+      <div class="field"><span class="field-label">Issuing Authority:</span><span class="field-value">FSSAI / APEDA / EIC / State Agri Dept.</span></div>
+      <div class="field"><span class="field-label">Validity:</span><span class="field-value"></span></div>
+      <div class="field"><span class="field-label">Destination Country:</span><span class="field-value"></span></div>
+      <div class="field"><span class="field-label">Importing Country Authority:</span><span class="field-value"></span></div>
+    </div>
+  </div>
+
+  <div class="section-title">Shipment &amp; Product Details</div>
+  <table>
+    <tr><td class="label">Product Name / Description:</td><td></td><td class="label">HS Code:</td><td></td></tr>
+    <tr><td class="label">Brand Name:</td><td></td><td class="label">Batch / Lot No.:</td><td></td></tr>
+    <tr><td class="label">Net Quantity / Weight:</td><td></td><td class="label">Gross Weight:</td><td></td></tr>
+    <tr><td class="label">No. of Packages:</td><td></td><td class="label">Packaging Type:</td><td></td></tr>
+    <tr><td class="label">Manufacturing Date:</td><td></td><td class="label">Best Before / Expiry:</td><td></td></tr>
+    <tr><td class="label">Country of Origin:</td><td>India</td><td class="label">Place of Manufacture:</td><td></td></tr>
+    <tr><td class="label">Storage Conditions:</td><td></td><td class="label">Transport Conditions:</td><td></td></tr>
+  </table>
+
+  <div class="section-title">Laboratory Test Results</div>
+  <table>
+    <thead><tr><th>Parameter / Test</th><th>Method / Standard</th><th>Result</th><th>Permissible Limit</th><th>Status</th></tr></thead>
+    <tbody>
+      ${[
+        ["Microbial Count (TPC)", "IS / ISO 4833", "", "As per CODEX / Importing Country", ""],
+        ["Coliform / E. coli", "IS / ISO 4832", "", "Absent in 1g / 25g", ""],
+        ["Salmonella", "IS / ISO 6579", "", "Absent in 25g", ""],
+        ["Pesticide Residue", "As per MRL Table", "", "As per Codex / Importing Country MRL", ""],
+        ["Heavy Metals (Pb/Cd/Hg/As)", "ICP-MS / AAS", "", "As per FSSAI / Codex limits", ""],
+        ["Aflatoxin (if applicable)", "ELISA / HPLC", "", "≤ 10 ppb (total)", ""],
+        ["Moisture Content (%)", "", "", "", ""],
+        ["pH / Brix (if applicable)", "", "", "", ""],
+      ].map(([p,m,r,l,s]) => `<tr><td>${p}</td><td>${m}</td><td>${r}</td><td style="font-size:10px;color:#6b7280">${l}</td><td>${s}</td></tr>`).join("")}
+    </tbody>
+  </table>
+  <p style="font-size:10px;color:#6b7280">Test report from: _________________________ (NABL / FSSAI approved lab) &nbsp;|&nbsp; Report No.: _______________ &nbsp;|&nbsp; Date: _______________</p>
+
+  <div class="section-title">Official Declaration</div>
+  <p style="font-size:11px;color:#374151">I, the undersigned official, certify that the product described above has been inspected and found to be fit for human consumption and complies with the food safety standards of India and the requirements of the importing country.</p>
+
+  <div class="sign-section">
+    <div class="sign-box">For <strong>${CO.name}</strong><br>Authorised Signatory &amp; Company Seal<br><br><br></div>
+    <div class="sign-box">Issuing Authority<br>Official Seal &amp; Signature<br><br><br></div>
+  </div>
+  <div class="footer">${CO.name} &nbsp;|&nbsp; ${CO.addr1}, ${CO.addr2} &nbsp;|&nbsp; ${CO.phone} &nbsp;|&nbsp; ${CO.email} &nbsp;|&nbsp; fssai.gov.in · apeda.gov.in</div>
+  </body></html>`;
+}
+
+/* ─── 13. US FDA Prior Notice (Food Exports to USA) ───────────────────────── */
+export function generateFDAPriorNotice(): string {
+  const today = new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>US FDA Prior Notice – ${CO.name}</title>
+  <style>${baseStyles}</style></head><body>
+  <h1>US FDA Prior Notice — Filing Checklist</h1>
+  <p class="subtitle">${CO.name} &nbsp;|&nbsp; Mandatory for All Food Exports to the United States (21 CFR Part 1, Subpart I)</p>
+
+  <div class="header-box" style="margin-bottom:16px">
+    <h3>Submitter / Exporter Details</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div>
+        <div class="field"><span class="field-label">Company Name:</span><span class="field-value prefilled">${CO.name}</span></div>
+        <div class="field"><span class="field-label">Address:</span><span class="field-value prefilled">${CO.addr1}, ${CO.addr2}</span></div>
+        <div class="field"><span class="field-label">Phone / WA:</span><span class="field-value prefilled">${CO.phone}</span></div>
+        <div class="field"><span class="field-label">Email:</span><span class="field-value prefilled">${CO.email}</span></div>
+      </div>
+      <div>
+        <div class="field"><span class="field-label">FDA Registration No.:</span><span class="field-value"></span></div>
+        <div class="field"><span class="field-label">DUNS / EIN No.:</span><span class="field-value"></span></div>
+        <div class="field"><span class="field-label">US Agent Name:</span><span class="field-value"></span></div>
+        <div class="field"><span class="field-label">US Agent Phone:</span><span class="field-value"></span></div>
+        <div class="field"><span class="field-label">Prior Notice Submission Date:</span><span class="field-value">${today}</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">1. FDA Facility Registration (Mandatory First Step)</div>
+  ${[
+    "Food facility registered on FDA Bioterrorism Registration Portal (registration.fda.gov)",
+    "Registration renewed (biennial renewal — even-numbered years)",
+    "US Agent appointed (mandatory for foreign facilities)",
+    "US Agent contact info updated in FDA system",
+    "FDA Registration Number noted: ____________________________",
+  ].map(item => `<div class="checklist-item"><div class="check-box"></div><div>${item}</div></div>`).join("")}
+
+  <div class="section-title">2. Prior Notice Filing Details (Submit via FDA PN System or ABI)</div>
+  <table>
+    <tr><td class="label">Product Name / Description:</td><td></td></tr>
+    <tr><td class="label">FDA Product Code:</td><td></td></tr>
+    <tr><td class="label">Quantity (amount &amp; unit):</td><td></td></tr>
+    <tr><td class="label">Lot / Code / Batch No.:</td><td></td></tr>
+    <tr><td class="label">Country of Origin:</td><td>India</td></tr>
+    <tr><td class="label">Manufacturer / Grower Name:</td><td class="prefilled">${CO.name}</td></tr>
+    <tr><td class="label">Manufacturer Address:</td><td class="prefilled">${CO.addr1}, ${CO.addr2}</td></tr>
+    <tr><td class="label">Shipper Name &amp; Address:</td><td class="prefilled">${CO.name}, ${CO.addr1}</td></tr>
+    <tr><td class="label">Carrier Name (Vessel / Airline):</td><td></td></tr>
+    <tr><td class="label">Port of Entry (USA):</td><td></td></tr>
+    <tr><td class="label">Anticipated Arrival Date (USA):</td><td></td></tr>
+    <tr><td class="label">Bill of Lading / AWB No.:</td><td></td></tr>
+    <tr><td class="label">US Consignee Name &amp; Address:</td><td></td></tr>
+    <tr><td class="label">US Importer of Record:</td><td></td></tr>
+  </table>
+
+  <div class="section-title">3. Timing Requirements</div>
+  <table>
+    <thead><tr><th>Mode of Transport</th><th>Submit Prior Notice At Least</th></tr></thead>
+    <tbody>
+      <tr><td>Sea (water)</td><td><strong>8 hours</strong> before arrival at US port</td></tr>
+      <tr><td>Air</td><td><strong>4 hours</strong> before arrival</td></tr>
+      <tr><td>Land / Rail</td><td><strong>2 hours</strong> before arrival</td></tr>
+      <tr><td>Other (express courier, mail)</td><td><strong>8 hours</strong> before arrival</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">4. Additional US Requirements Checklist</div>
+  ${[
+    "FSVP (Foreign Supplier Verification Program) — US importer must have FSVP for your facility",
+    "FSMA Compliance — Food Safety Modernization Act preventive controls met",
+    "Labeling: English labels with Nutrition Facts / Supplement Facts panel",
+    "USDA Organic Certification (if claiming organic on label)",
+    "Allergen declarations correct and complete (FDA Big 9 allergens)",
+    "Country of Origin Labeling (COOL) — 'Product of India' clearly stated",
+    "Bioterrorism Act compliance — facility security procedures documented",
+    "FDA Import Alert check — product / facility not on DWPE (Detention Without Physical Examination) list",
+    "CBP (Customs &amp; Border Protection) entry filing by licensed US Customs Broker",
+    "USDA APHIS permit (if fresh fruits, vegetables, or plant products)",
+    "FDA Prior Notice confirmation number obtained and shared with US importer / customs broker",
+  ].map(item => `<div class="checklist-item"><div class="check-box"></div><div>${item}</div></div>`).join("")}
+
+  <div class="section-title">Useful Contacts &amp; Links</div>
+  <table>
+    <tr><td class="label">FDA PN System:</td><td>www.access.fda.gov/prior-notice</td></tr>
+    <tr><td class="label">FDA Facility Reg.:</td><td>registration.fda.gov</td></tr>
+    <tr><td class="label">FDA Helpdesk:</td><td>1-800-216-7331 (USA) &nbsp;|&nbsp; prior.notice@fda.hhs.gov</td></tr>
+    <tr><td class="label">APEDA (India):</td><td>1800-111-175 &nbsp;|&nbsp; helpdesk@apeda.gov.in</td></tr>
+    <tr><td class="label">FSSAI (India):</td><td>1800-112-100 &nbsp;|&nbsp; regd@fssai.gov.in</td></tr>
+  </table>
+  <div class="footer">${CO.name} &nbsp;|&nbsp; ${CO.addr1}, ${CO.addr2} &nbsp;|&nbsp; ${CO.phone} &nbsp;|&nbsp; ${CO.email}</div>
+  </body></html>`;
+}
+
+/* ─── 14. RoDTEP / Duty Drawback Claim Form ───────────────────────────────── */
+export function generateRoDTEPClaim(): string {
+  const today = new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+  const fy = (() => { const d = new Date(); const y = d.getFullYear(); return d.getMonth() >= 3 ? `${y}-${y+1}` : `${y-1}-${y}`; })();
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>RoDTEP / Drawback Claim – ${CO.name}</title>
+  <style>${baseStyles}</style></head><body>
+  <h1>RoDTEP / Duty Drawback Claim Form</h1>
+  <p class="subtitle">${CO.name} &nbsp;|&nbsp; Remission of Duties &amp; Taxes on Exported Products &nbsp;|&nbsp; FY ${fy}</p>
+
+  <div class="header-grid">
+    <div class="header-box">
+      <h3>Exporter Details</h3>
+      <div class="field"><span class="field-label">Company Name:</span><span class="field-value prefilled">${CO.name}</span></div>
+      <div class="field"><span class="field-label">Address:</span><span class="field-value prefilled">${CO.addr1}, ${CO.addr2}</span></div>
+      <div class="field"><span class="field-label">Phone / WA:</span><span class="field-value prefilled">${CO.phone}</span></div>
+      <div class="field"><span class="field-label">Email:</span><span class="field-value prefilled">${CO.email}</span></div>
+      <div class="field"><span class="field-label">IEC No.:</span><span class="field-value">${CO.iec}</span></div>
+      <div class="field"><span class="field-label">GSTIN:</span><span class="field-value">${CO.gstin}</span></div>
+      <div class="field"><span class="field-label">Bank A/C for Credit:</span><span class="field-value"></span></div>
+      <div class="field"><span class="field-label">IFSC Code:</span><span class="field-value"></span></div>
+    </div>
+    <div class="header-box">
+      <h3>Shipment / Claim Reference</h3>
+      <div class="field"><span class="field-label">Shipping Bill No.:</span><span class="field-value"></span></div>
+      <div class="field"><span class="field-label">Shipping Bill Date:</span><span class="field-value"></span></div>
+      <div class="field"><span class="field-label">Port of Export:</span><span class="field-value"></span></div>
+      <div class="field"><span class="field-label">Custom House (AD Code):</span><span class="field-value"></span></div>
+      <div class="field"><span class="field-label">Claim Filing Date:</span><span class="field-value">${today}</span></div>
+      <div class="field"><span class="field-label">Financial Year:</span><span class="field-value">${fy}</span></div>
+      <div class="field"><span class="field-label">Scheme Applied:</span><span class="field-value">□ RoDTEP &nbsp; □ Drawback &nbsp; □ Both</span></div>
+    </div>
+  </div>
+
+  <div class="section-title">Goods &amp; HS Code Details</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Sr.</th><th>Description of Goods</th><th>HS Code (8-digit)</th>
+        <th>Qty Exported</th><th>FOB Value (INR)</th>
+        <th>RoDTEP Rate (%)</th><th>RoDTEP Amount (INR)</th>
+        <th>DBK Rate (%)</th><th>DBK Amount (INR)</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${[1,2,3,4].map(i=>`<tr><td>${i}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`).join("")}
+      <tr class="total-row"><td colspan="4" style="text-align:right">Total FOB / Claim</td><td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">RoDTEP — Key Points</div>
+  <table>
+    <tr><td class="label">Notification:</td><td>Customs (N.T.) No. 75/2021 &amp; subsequent amendments</td></tr>
+    <tr><td class="label">Credit Type:</td><td>Transferable duty credit e-scrip (credited to ICEGATE ledger)</td></tr>
+    <tr><td class="label">How to Claim:</td><td>Auto-claimed via Shipping Bill declaration on ICEGATE (select RoDTEP = Y)</td></tr>
+    <tr><td class="label">Credit Use:</td><td>Pay Basic Customs Duty on imports or transfer/sell to other importers</td></tr>
+    <tr><td class="label">Time Limit:</td><td>Scrip validity: 1 year from date of issuance</td></tr>
+    <tr><td class="label">Exclusions:</td><td>SEZ exports, AA / DFIA holders, EOUs (separate schemes apply)</td></tr>
+  </table>
+
+  <div class="section-title">Duty Drawback — Key Points</div>
+  <table>
+    <tr><td class="label">Types:</td><td>All Industry Rate (AIR) &nbsp;|&nbsp; Brand Rate (BR) — apply if AIR insufficient</td></tr>
+    <tr><td class="label">Rate Schedule:</td><td>Customs &amp; Central Excise Drawback Rules 2017 — CBIC notification</td></tr>
+    <tr><td class="label">Time Limit:</td><td>Claim within 3 years of export date (Section 75A Customs Act)</td></tr>
+    <tr><td class="label">Payment:</td><td>Directly to exporter's bank account via PFMS (Public Financial Management System)</td></tr>
+  </table>
+
+  <div class="section-title">Documents to Attach</div>
+  ${[
+    "Copy of Shipping Bill with LEO (Let Export Order)",
+    "Commercial Invoice copy",
+    "Packing List copy",
+    "Bill of Lading / AWB copy",
+    "Bank Realization Certificate (BRC) — for completed payments",
+    "FIRC (Foreign Inward Remittance Certificate)",
+    "AD Code registration letter from bank",
+    "Self-declaration of inputs used (for Brand Rate drawback)",
+    "CA certificate for Brand Rate claim (if AIR insufficient)",
+  ].map(item => `<div class="checklist-item"><div class="check-box"></div><div>${item}</div></div>`).join("")}
+
+  <div class="sign-section">
+    <div class="sign-box">For <strong>${CO.name}</strong><br>Authorised Signatory &amp; Date<br><br><br></div>
+    <div class="sign-box">Customs Officer<br>Verification &amp; Stamp<br><br><br></div>
+  </div>
+  <div class="footer">${CO.name} &nbsp;|&nbsp; ${CO.addr1}, ${CO.addr2} &nbsp;|&nbsp; ${CO.phone} &nbsp;|&nbsp; ${CO.email} &nbsp;|&nbsp; icegate.gov.in · cbic.gov.in</div>
+  </body></html>`;
+}
