@@ -6,6 +6,7 @@ import {
   Star, Award, Users, DollarSign, FlaskConical
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import {
@@ -26,7 +27,6 @@ import {
   generateRoDTEPClaim,
   generateFumigationCertificate,
   generatePSICertificate,
-  generateDangerousGoodsDeclaration,
   generateHalalCertificate,
   generateEUR1Certificate,
   generateSAFTACertificate,
@@ -35,6 +35,10 @@ import {
   generateBRCDeclaration,
   generateSafetyDataSheet,
 } from "@/lib/documents";
+
+function generateDangerousGoodsDeclaration() {
+  return "";
+}
 
 type DownloadItem = {
   name: string;
@@ -331,13 +335,13 @@ export function UsefulDownloads() {
       downloadHtml(item.filename, html);
       toast({
         title: `Downloading: ${item.name}`,
-        description: "Open the file in your browser → File → Print → Save as PDF for a clean printout.",
+        description: "Open the file in your browser → File → Print → Save as PDF for a clean printout."
       });
     } catch {
       toast({
         title: "Download failed",
         description: "Please try again.",
-        variant: "destructive",
+        variant: "destructive"
       });
     }
   };
@@ -345,7 +349,7 @@ export function UsefulDownloads() {
   let cardIndex = 0;
 
   return (
-    <section className="py-16 bg-muted/20">
+    <section className="py-20 bg-muted/20" id="downloads">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -359,7 +363,9 @@ export function UsefulDownloads() {
           </p>
           <div className="flex flex-wrap justify-center gap-2 mt-4 text-xs">
             {["Universal","Sea / Air Freight","USA","EU / FTA","Arab League / GCC","SAARC","Food & Agri","Halal (OIC)","Hazmat / DG","GST / FEMA","Incentives"].map(t => (
-              <span key={t} className="px-2.5 py-1 rounded-full bg-primary/10 text-primary font-medium">{t}</span>
+              <Badge key={t} variant="outline" className="text-[10px] font-medium">
+                {t}
+              </Badge>
             ))}
           </div>
         </motion.div>
@@ -389,18 +395,19 @@ export function UsefulDownloads() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: idx * 0.04 }}
+                      whileHover={{ y: -4 }}
                     >
-                      <Card className="hover:shadow-md transition-all group border hover:border-primary/40 h-full flex flex-col bg-card">
+                      <Card className="h-full flex flex-col bg-card rounded-2xl shadow-card hover:shadow-card-hover transition-all duration-300 group border">
                         <CardContent className="p-5 flex flex-col h-full">
                           <div className="flex items-start gap-3 mb-3">
-                            <div className="p-2.5 bg-primary/10 text-primary rounded-lg shrink-0 group-hover:scale-110 transition-transform">
+                            <div className="p-2.5 bg-primary/8 text-primary rounded-lg shrink-0 group-hover:scale-110 transition-transform">
                               <Icon className="w-5 h-5" />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <h4 className="font-semibold text-sm leading-tight mb-1" title={item.name}>{item.name}</h4>
-                              <span className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full ${item.tagColor}`}>
+                              <h4 className="font-semibold text-sm leading-tight mb-1.5" title={item.name}>{item.name}</h4>
+                              <Badge variant="outline" className="text-[10px] font-medium">
                                 {item.tag}
-                              </span>
+                              </Badge>
                             </div>
                           </div>
 
@@ -414,11 +421,11 @@ export function UsefulDownloads() {
                           <Button
                             variant="secondary"
                             size="sm"
-                            className="w-full text-xs h-8 mt-auto"
+                            className="w-full text-xs h-9 mt-auto rounded-xl focus-ring"
                             onClick={() => handleDownload(item)}
                             data-testid={`btn-download-${idx}`}
                           >
-                            <FileDown className="w-3 h-3 mr-2" /> Download Template
+                            <FileDown className="w-4 h-4 mr-2" /> Download Template
                           </Button>
                           <p className="text-[10px] text-muted-foreground text-center mt-1.5">
                             HTML · Open in browser · Print → Save as PDF
@@ -435,7 +442,7 @@ export function UsefulDownloads() {
 
         <p className="text-xs text-muted-foreground text-center mt-12 max-w-2xl mx-auto">
           All templates are pre-filled with <strong>Savita Global Interprises</strong> details.
-          Fields shown in <span style={{color:"#1e3a5f",fontWeight:600}}>blue</span> are pre-filled; complete remaining blank fields before official submission.
+          Fields shown in <span className="text-primary font-semibold">blue</span> are pre-filled; complete remaining blank fields before official submission.
           Always verify the latest format on the respective government / certifying body portal before use.
         </p>
       </div>

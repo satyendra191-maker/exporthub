@@ -10,27 +10,27 @@ interface ComparisonTableProps {
 }
 
 const stageColors: Record<string, string> = {
-  "Pre-Export":        "bg-blue-100  text-blue-800  hover:bg-blue-200",
+  "Pre-Export":        "bg-blue-100 text-blue-800 hover:bg-blue-200",
   "Registration":      "bg-indigo-100 text-indigo-800 hover:bg-indigo-200",
   "Product Selection": "bg-orange-100 text-orange-800 hover:bg-orange-200",
-  "Market Selection":  "bg-teal-100  text-teal-800  hover:bg-teal-200",
-  "Research":          "bg-cyan-100  text-cyan-800  hover:bg-cyan-200",
+  "Market Selection":  "bg-teal-100 text-teal-800 hover:bg-teal-200",
+  "Research":          "bg-cyan-100 text-cyan-800 hover:bg-cyan-200",
   "Execution":         "bg-purple-100 text-purple-800 hover:bg-purple-200",
-  "Certification":     "bg-green-100 text-green-800  hover:bg-green-200",
-  "Shipping":          "bg-amber-100 text-amber-800  hover:bg-amber-200",
-  "Setup":             "bg-pink-100  text-pink-800   hover:bg-pink-200",
+  "Certification":     "bg-success/20 text-success hover:bg-success/30",
+  "Shipping":          "bg-amber-100 text-amber-800 hover:bg-amber-200",
+  "Setup":             "bg-pink-100 text-pink-800 hover:bg-pink-200",
 };
 
 const costColors: Record<string, string> = {
-  "Free":              "bg-emerald-100 text-emerald-800 hover:bg-emerald-200",
-  "Paid (IEC ₹500)":  "bg-yellow-100  text-yellow-800  hover:bg-yellow-200",
-  "Paid (Membership)": "bg-orange-100  text-orange-800  hover:bg-orange-200",
-  "Paid (Registration)":"bg-red-100   text-red-800     hover:bg-red-200",
+  "Free":              "bg-success/20 text-success hover:bg-success/30",
+  "Paid (IEC ₹500)":  "bg-warning/20 text-warning hover:bg-warning/30",
+  "Paid (Membership)": "bg-amber-100 text-amber-800 hover:bg-amber-200",
+  "Paid (Registration)":"bg-destructive/20 text-destructive hover:bg-destructive/30",
 };
 
 export function ComparisonTable({ onFilterByStage, onFilterByCategory }: ComparisonTableProps) {
   return (
-    <section className="py-16 bg-muted/20" id="resources">
+    <section className="py-20 bg-muted/20" id="resources">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -42,22 +42,22 @@ export function ComparisonTable({ onFilterByStage, onFilterByCategory }: Compari
           <h2 className="text-3xl font-bold tracking-tight mb-4">Portal Comparison Matrix</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Click any <span className="inline-flex items-center gap-1 text-primary font-medium"><Filter className="w-3 h-3"/>Stage</span> or{" "}
-            <span className="font-medium text-emerald-700">Cost</span> badge to instantly filter the portal cards above.
+            <span className="font-medium text-success">Cost</span> badge to instantly filter the portal cards above.
           </p>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="rounded-xl border bg-card shadow-sm overflow-hidden"
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="rounded-2xl border bg-card shadow-card overflow-hidden"
         >
           <div className="overflow-x-auto">
             <Table>
-              <TableHeader className="bg-primary/5">
-                <TableRow className="hover:bg-primary/5">
-                  <TableHead className="w-[150px] font-semibold text-primary sticky left-0 bg-primary/5 shadow-[1px_0_0_0_hsl(var(--border))] z-10">
+              <TableHeader className="bg-primary/[0.03]">
+                <TableRow className="hover:bg-transparent border-b-2">
+                  <TableHead className="w-[180px] font-semibold text-primary sticky left-0 bg-primary/[0.03] shadow-[1px_0_0_0_hsl(var(--border))] z-10">
                     Portal
                   </TableHead>
                   <TableHead className="font-semibold">Category</TableHead>
@@ -65,36 +65,36 @@ export function ComparisonTable({ onFilterByStage, onFilterByCategory }: Compari
 
                   {/* Clickable columns */}
                   <TableHead className="font-semibold text-primary">
-                    <span className="flex items-center gap-1"><Filter className="w-3 h-3" /> Stage ↕</span>
+                    <span className="flex items-center gap-1"><Filter className="w-3 h-3" /> Stage</span>
                   </TableHead>
-                  <TableHead className="font-semibold text-emerald-700">
-                    <span className="flex items-center gap-1"><Filter className="w-3 h-3" /> Cost ↕</span>
+                  <TableHead className="font-semibold text-success">
+                    <span className="flex items-center gap-1"><Filter className="w-3 h-3" /> Cost</span>
                   </TableHead>
 
                   <TableHead className="font-semibold text-center">Mobile</TableHead>
 
                   {/* Authority */}
-                  <TableHead className="font-semibold min-w-[190px] border-l-2 border-primary/20 bg-primary/[0.03]">
+                  <TableHead className="font-semibold min-w-[200px] border-l-2 border-primary/20 bg-primary/[0.02]">
                     <span className="flex items-center gap-1.5 text-primary">
                       <User className="w-3.5 h-3.5" /> Top Authority
                     </span>
                   </TableHead>
-                  <TableHead className="font-semibold min-w-[150px] bg-primary/[0.03]">
+                  <TableHead className="font-semibold min-w-[160px] bg-primary/[0.02]">
                     <span className="flex items-center gap-1.5 text-primary">
                       <Phone className="w-3.5 h-3.5" /> Office Direct
                     </span>
                   </TableHead>
-                  <TableHead className="font-semibold min-w-[150px] bg-primary/[0.03]">
-                    <span className="flex items-center gap-1.5 text-green-600">
+                  <TableHead className="font-semibold min-w-[160px] bg-primary/[0.02]">
+                    <span className="flex items-center gap-1.5 text-success">
                       <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
                     </span>
                   </TableHead>
 
                   {/* Helpdesk */}
-                  <TableHead className="font-semibold min-w-[165px] border-l-2 border-muted">
+                  <TableHead className="font-semibold min-w-[180px] border-l-2 border-border">
                     <span className="flex items-center gap-1.5"><Phone className="w-3.5 h-3.5" /> Helpline</span>
                   </TableHead>
-                  <TableHead className="font-semibold min-w-[210px]">
+                  <TableHead className="font-semibold min-w-[220px]">
                     <span className="flex items-center gap-1.5"><Mail className="w-3.5 h-3.5" /> Email</span>
                   </TableHead>
                   <TableHead className="font-semibold">Hours</TableHead>
@@ -104,7 +104,7 @@ export function ComparisonTable({ onFilterByStage, onFilterByCategory }: Compari
                 {portals.map((portal, idx) => (
                   <TableRow
                     key={portal.id}
-                    className={idx % 2 === 0 ? "bg-background" : "bg-muted/30"}
+                    className={`transition-colors hover:bg-muted/30 ${idx % 2 === 0 ? "bg-background" : "bg-muted/10"}`}
                     data-testid={`row-portal-${portal.id}`}
                   >
                     {/* Sticky portal name */}
@@ -116,7 +116,7 @@ export function ComparisonTable({ onFilterByStage, onFilterByCategory }: Compari
                     <TableCell>
                       <button
                         onClick={() => onFilterByCategory(portal.category)}
-                        className="text-xs font-medium text-primary underline-offset-2 hover:underline cursor-pointer bg-transparent border-none text-left"
+                        className="text-xs font-medium text-primary underline-offset-2 hover:underline cursor-pointer bg-transparent border-none text-left rounded px-1 py-0.5 hover:bg-primary/5 transition-colors"
                         title={`Filter by ${portal.category}`}
                         data-testid={`filter-cat-${portal.id}`}
                       >
@@ -159,18 +159,18 @@ export function ComparisonTable({ onFilterByStage, onFilterByCategory }: Compari
                     {/* Mobile */}
                     <TableCell className="text-center">
                       {portal.mobileFriendly === "Yes" ? (
-                        <Check className="w-4 h-4 text-emerald-500 mx-auto" />
+                        <Check className="w-5 h-5 text-success mx-auto" />
                       ) : portal.mobileFriendly === "Limited" ? (
-                        <span className="text-amber-500 text-xs font-bold">LTD</span>
+                        <span className="text-warning font-bold text-xs">LTD</span>
                       ) : portal.mobileFriendly === "Depends" ? (
-                        <span className="text-amber-400 text-xs font-bold">~</span>
+                        <span className="text-warning/70 font-bold text-xs">~</span>
                       ) : (
-                        <X className="w-4 h-4 text-destructive mx-auto" />
+                        <X className="w-5 h-5 text-destructive mx-auto" />
                       )}
                     </TableCell>
 
                     {/* Authority */}
-                    <TableCell className="border-l-2 border-primary/20 bg-primary/[0.03]">
+                    <TableCell className="border-l-2 border-primary/20 bg-primary/[0.02]">
                       <div className="flex items-start gap-1.5">
                         <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
                           <User className="w-3 h-3 text-primary" />
@@ -181,7 +181,7 @@ export function ComparisonTable({ onFilterByStage, onFilterByCategory }: Compari
                       </div>
                     </TableCell>
 
-                    <TableCell className="bg-primary/[0.03]">
+                    <TableCell className="bg-primary/[0.02]">
                       <a
                         href={`tel:${portal.headOfficePhone.replace(/[^0-9+]/g, "")}`}
                         className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline whitespace-nowrap"
@@ -192,7 +192,7 @@ export function ComparisonTable({ onFilterByStage, onFilterByCategory }: Compari
                       </a>
                     </TableCell>
 
-                    <TableCell className="bg-primary/[0.03]">
+                    <TableCell className="bg-primary/[0.02]">
                       {portal.whatsapp === "N/A" ? (
                         <Badge variant="outline" className="text-[10px] text-muted-foreground">Not listed</Badge>
                       ) : (
@@ -200,7 +200,7 @@ export function ComparisonTable({ onFilterByStage, onFilterByCategory }: Compari
                           href={`https://wa.me/91${portal.whatsapp.replace(/[^0-9]/g, "")}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs font-medium text-green-600 hover:underline whitespace-nowrap"
+                          className="inline-flex items-center gap-1 text-xs font-medium text-success hover:underline whitespace-nowrap"
                           data-testid={`whatsapp-${portal.id}`}
                         >
                           <MessageCircle className="w-3 h-3 shrink-0" />
@@ -210,7 +210,7 @@ export function ComparisonTable({ onFilterByStage, onFilterByCategory }: Compari
                     </TableCell>
 
                     {/* Helpdesk */}
-                    <TableCell className="border-l-2 border-muted">
+                    <TableCell className="border-l-2 border-border">
                       <a
                         href={`tel:${portal.phone.replace(/[^0-9+]/g, "")}`}
                         className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline whitespace-nowrap"
@@ -224,7 +224,7 @@ export function ComparisonTable({ onFilterByStage, onFilterByCategory }: Compari
                     <TableCell>
                       <a
                         href={`mailto:${portal.email}`}
-                        className="inline-flex items-center gap-1 text-xs text-blue-600 hover:underline whitespace-nowrap"
+                        className="inline-flex items-center gap-1 text-xs text-primary hover:underline whitespace-nowrap"
                         data-testid={`email-${portal.id}`}
                       >
                         <Mail className="w-3 h-3 shrink-0" />

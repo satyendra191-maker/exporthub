@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Zap } from "lucide-react";
 
 const steps = [
   { step: 1, title: "Choose Product", portals: ["ODOP"], desc: "Identify your product and local manufacturing clusters." },
@@ -21,8 +21,8 @@ export function ExportJourney() {
   };
 
   const item = {
-    hidden: { opacity: 0, y: 30 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
+    hidden: { opacity: 0, y: 30, scale: 0.96 },
+    show: { opacity: 1, y: 0, scale: 1 },
   };
 
   return (
@@ -49,7 +49,7 @@ export function ExportJourney() {
           viewport={{ once: true, margin: "-60px" }}
         >
           {/* Vertical connector line for mobile */}
-          <div className="absolute left-7 top-6 bottom-6 w-px bg-gradient-to-b from-primary via-primary/50 to-transparent md:hidden" />
+          <div className="absolute left-7 top-6 bottom-6 w-px bg-gradient-to-b from-primary via-secondary to-transparent md:hidden" />
 
           {/* Horizontal connector for desktop */}
           <div className="hidden md:block absolute top-8 left-[12%] right-[12%] h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
@@ -58,11 +58,11 @@ export function ExportJourney() {
             {steps.map((step, index) => (
               <motion.div
                 key={step.step}
-                className="relative pl-20 md:pl-0 md:w-[22%] md:px-2 flex flex-col md:items-center md:text-center"
+                className="relative pl-20 md:pl-0 md:w-[22%] md:px-2 flex flex-col md:items-center md:text-center group"
                 variants={item}
               >
                 {/* Step circle */}
-                <div className="absolute left-0 md:relative md:left-auto md:top-auto w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary/80 text-white flex items-center justify-center font-bold text-lg shadow-lg shadow-primary/20 z-10 mb-4 shrink-0 md:mb-6 border-4 border-background">
+                <div className="absolute left-0 md:relative md:left-auto md:top-auto w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-primary/80 text-white flex items-center justify-center font-bold text-lg shadow-lg shadow-primary/20 z-10 mb-4 shrink-0 md:mb-6 border-4 border-background group-hover:scale-110 transition-transform duration-300">
                   {step.step}
                 </div>
 

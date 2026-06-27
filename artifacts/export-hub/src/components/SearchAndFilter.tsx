@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Search, X, SlidersHorizontal } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { categories } from "@/lib/data";
 
 interface SearchAndFilterProps {
@@ -28,16 +29,16 @@ const categoryStyles: Record<string, { active: string; idle: string }> = {
     idle: "text-teal-600 border-teal-300/50 hover:bg-teal-50",
   },
   "Food & Agri": {
-    active: "bg-emerald-600 text-white border-emerald-600",
-    idle: "text-emerald-600 border-emerald-300/50 hover:bg-emerald-50",
+    active: "bg-success text-white border-success",
+    idle: "text-success border-success/50 hover:bg-success/10",
   },
   "Customs": {
-    active: "bg-orange-600 text-white border-orange-600",
-    idle: "text-orange-600 border-orange-300/50 hover:bg-orange-50",
+    active: "bg-warning text-white border-warning",
+    idle: "text-warning border-warning/50 hover:bg-warning/10",
   },
   "Investment": {
-    active: "bg-purple-600 text-white border-purple-600",
-    idle: "text-purple-600 border-purple-300/50 hover:bg-purple-50",
+    active: "bg-secondary text-white border-secondary",
+    idle: "text-secondary border-secondary/50 hover:bg-secondary/10",
   },
 };
 
@@ -60,7 +61,9 @@ export function SearchAndFilter({
           {/* Section title */}
           <div className="text-center mb-8">
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2">Explore Government Portals</h2>
-            <p className="text-sm text-muted-foreground">Search across 10 portals or filter by category</p>
+            <p className="text-sm text-muted-foreground max-w-xl mx-auto">
+              Search across 10 portals or filter by category to find what you need
+            </p>
           </div>
 
           {/* Search input */}
@@ -71,19 +74,23 @@ export function SearchAndFilter({
             <Input
               type="text"
               placeholder="Search portals, HS codes, schemes, export stages..."
-              className="pl-12 pr-12 h-14 text-base rounded-2xl border border-border bg-card shadow-sm hover:shadow-md focus:shadow-md focus:border-primary/50 transition-all duration-300"
+              className="pl-12 pr-12 h-14 text-base rounded-2xl border-border bg-card shadow-card hover:shadow-card-hover focus:shadow-card-hover transition-all duration-300"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               data-testid="input-search-portals"
+              aria-label="Search government portals"
             />
             {searchQuery && (
-              <button
-                className="absolute inset-y-0 right-4 flex items-center text-muted-foreground hover:text-foreground transition-colors"
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="absolute inset-y-0 right-4 h-8 w-8 text-muted-foreground hover:text-foreground rounded-xl focus-ring"
                 onClick={() => setSearchQuery("")}
                 aria-label="Clear search"
               >
                 <X className="h-4 w-4" />
-              </button>
+              </Button>
             )}
           </div>
 
@@ -100,12 +107,13 @@ export function SearchAndFilter({
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`rounded-xl px-4 py-2 text-xs font-semibold border transition-all duration-200 cursor-pointer select-none ${
+                  className={`rounded-xl px-4 py-2.5 text-xs font-semibold border transition-all duration-200 cursor-pointer select-none min-h-[44px] focus-ring ${
                     isActive
-                      ? `${styles.active} shadow-sm`
-                      : `bg-white ${styles.idle}`
+                      ? `${styles.active} shadow-md`
+                      : `bg-card ${styles.idle} border-border`
                   }`}
                   data-testid={`filter-category-${category.replace(/[^a-zA-Z]/g, "").toLowerCase()}`}
+                  aria-pressed={isActive}
                 >
                   {category}
                 </button>
@@ -126,7 +134,7 @@ export function SearchAndFilter({
                 {searchQuery && <span> matching <span className="font-semibold text-foreground">"{searchQuery}"</span></span>}
               </span>
               <button
-                className="text-xs underline hover:text-primary font-medium"
+                className="text-xs underline hover:text-primary font-medium focus-ring"
                 onClick={() => { setSearchQuery(""); setSelectedCategory("All"); }}
               >
                 Clear all
