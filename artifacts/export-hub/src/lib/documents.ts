@@ -324,23 +324,7 @@ export function generateShippingBillChecklist(): string {
   return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Shipping Bill Checklist – ${CO.name}</title>
   <style>${baseStyles}</style></head><body>
   <h1>Shipping Bill Filing Checklist</h1>
-  <p class="subtitle">${CO.name} &nbsp;|&nbsp; Indian Customs (ICEGATE) &nbsp;|&nbsp; icegate.gov.in</p>
-
-  <div class="header-box" style="margin-bottom:16px">
-    <h3>Exporter Details</h3>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-      <div>
-        <div class="field"><span class="field-label">Company:</span><span class="field-value prefilled">${CO.name}</span></div>
-        <div class="field"><span class="field-label">Address:</span><span class="field-value prefilled">${CO.addr1}, ${CO.addr2}</span></div>
-        <div class="field"><span class="field-label">IEC:</span><span class="field-value">${CO.iec}</span></div>
-      </div>
-      <div>
-        <div class="field"><span class="field-label">GSTIN:</span><span class="field-value">${CO.gstin}</span></div>
-        <div class="field"><span class="field-label">Phone / WA:</span><span class="field-value prefilled">${CO.phone}</span></div>
-        <div class="field"><span class="field-label">Email:</span><span class="field-value prefilled">${CO.email}</span></div>
-      </div>
-    </div>
-  </div>
+  <p class="subtitle">${CO.name} &nbsp;|&nbsp; IEC: ${CO.iec || "_________________"} &nbsp;|&nbsp; GSTIN: ${CO.gstin || "_________________"} &nbsp;|&nbsp; Indian Customs (ICEGATE) &nbsp;|&nbsp; icegate.gov.in</p>
 
   <div class="section-title">1. Types of Shipping Bill</div>
   <table>
@@ -398,11 +382,11 @@ export function generateExportReadinessChecklist(): string {
   <div class="header-grid">
     <div class="header-box">
       <div class="field"><span class="field-label">Company Name:</span><span class="field-value prefilled">${CO.name}</span></div>
-      <div class="field"><span class="field-label">Address:</span><span class="field-value prefilled">${CO.addr1}, ${CO.addr2}</span></div>
-      <div class="field"><span class="field-label">Phone / WA:</span><span class="field-value prefilled">${CO.phone}</span></div>
-      <div class="field"><span class="field-label">Email:</span><span class="field-value prefilled">${CO.email}</span></div>
+      <div class="field"><span class="field-label">IEC No.:</span><span class="field-value">${CO.iec}</span></div>
+      <div class="field"><span class="field-label">GSTIN:</span><span class="field-value">${CO.gstin}</span></div>
       <div class="field"><span class="field-label">Product / HS Code:</span><span class="field-value"></span></div>
       <div class="field"><span class="field-label">Target Market:</span><span class="field-value"></span></div>
+      <div class="field"><span class="field-label">Assessment Date:</span><span class="field-value">${today}</span></div>
     </div>
     <div class="score-box">
       <h2>&nbsp;&nbsp;&nbsp;/ 30</h2>
