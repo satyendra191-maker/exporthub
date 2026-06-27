@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Search, X } from "lucide-react";
+import { Search, X, SlidersHorizontal } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { categories } from "@/lib/data";
 
@@ -10,24 +10,35 @@ interface SearchAndFilterProps {
   setSelectedCategory: (val: string) => void;
 }
 
-const categoryColors: Record<string, string> = {
-  "All":             "bg-gray-800  text-white  border-gray-800",
-  "Market Research": "bg-blue-600  text-white  border-blue-600",
-  "Compliance":      "bg-indigo-600 text-white border-indigo-600",
-  "Analytics":       "bg-teal-600  text-white  border-teal-600",
-  "Food & Agri":     "bg-green-600 text-white  border-green-600",
-  "Customs":         "bg-orange-600 text-white border-orange-600",
-  "Investment":      "bg-purple-600 text-white border-purple-600",
-};
-
-const categoryColorsIdle: Record<string, string> = {
-  "All":             "text-gray-700  border-gray-300  hover:bg-gray-100",
-  "Market Research": "text-blue-700  border-blue-300  hover:bg-blue-50",
-  "Compliance":      "text-indigo-700 border-indigo-300 hover:bg-indigo-50",
-  "Analytics":       "text-teal-700  border-teal-300  hover:bg-teal-50",
-  "Food & Agri":     "text-green-700 border-green-300 hover:bg-green-50",
-  "Customs":         "text-orange-700 border-orange-300 hover:bg-orange-50",
-  "Investment":      "text-purple-700 border-purple-300 hover:bg-purple-50",
+const categoryStyles: Record<string, { active: string; idle: string }> = {
+  "All": {
+    active: "bg-foreground text-white border-foreground",
+    idle: "text-foreground border-foreground/20 hover:bg-foreground/5",
+  },
+  "Market Research": {
+    active: "bg-blue-600 text-white border-blue-600",
+    idle: "text-blue-600 border-blue-300/50 hover:bg-blue-50",
+  },
+  "Compliance": {
+    active: "bg-indigo-600 text-white border-indigo-600",
+    idle: "text-indigo-600 border-indigo-300/50 hover:bg-indigo-50",
+  },
+  "Analytics": {
+    active: "bg-teal-600 text-white border-teal-600",
+    idle: "text-teal-600 border-teal-300/50 hover:bg-teal-50",
+  },
+  "Food & Agri": {
+    active: "bg-emerald-600 text-white border-emerald-600",
+    idle: "text-emerald-600 border-emerald-300/50 hover:bg-emerald-50",
+  },
+  "Customs": {
+    active: "bg-orange-600 text-white border-orange-600",
+    idle: "text-orange-600 border-orange-300/50 hover:bg-orange-50",
+  },
+  "Investment": {
+    active: "bg-purple-600 text-white border-purple-600",
+    idle: "text-purple-600 border-purple-300/50 hover:bg-purple-50",
+  },
 };
 
 export function SearchAndFilter({
@@ -37,8 +48,8 @@ export function SearchAndFilter({
   setSelectedCategory,
 }: SearchAndFilterProps) {
   return (
-    <section className="py-12 bg-background" id="tools">
-      <div className="container mx-auto px-4">
+    <section className="py-16 bg-background" id="tools">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="max-w-3xl mx-auto space-y-6"
           initial={{ opacity: 0, y: 20 }}
@@ -46,21 +57,28 @@ export function SearchAndFilter({
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
+          {/* Section title */}
+          <div className="text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2">Explore Government Portals</h2>
+            <p className="text-sm text-muted-foreground">Search across 10 portals or filter by category</p>
+          </div>
+
+          {/* Search input */}
           <div className="relative group">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+            <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
               <Search className="h-5 w-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
             </div>
             <Input
               type="text"
-              placeholder="Search portals, HS codes, schemes, export stage..."
-              className="pl-11 pr-10 h-14 text-base rounded-full border-2 border-border bg-card shadow-sm hover:border-primary/40 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+              placeholder="Search portals, HS codes, schemes, export stages..."
+              className="pl-12 pr-12 h-14 text-base rounded-2xl border border-border bg-card shadow-sm hover:shadow-md focus:shadow-md focus:border-primary/50 transition-all duration-300"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               data-testid="input-search-portals"
             />
             {searchQuery && (
               <button
-                className="absolute inset-y-0 right-0 pr-4 flex items-center text-muted-foreground hover:text-foreground transition-colors"
+                className="absolute inset-y-0 right-4 flex items-center text-muted-foreground hover:text-foreground transition-colors"
                 onClick={() => setSearchQuery("")}
                 aria-label="Clear search"
               >
@@ -69,19 +87,23 @@ export function SearchAndFilter({
             )}
           </div>
 
+          {/* Category filter pills */}
           <div className="flex flex-wrap items-center justify-center gap-2">
+            <div className="flex items-center gap-1.5 text-muted-foreground mr-1">
+              <SlidersHorizontal className="w-3.5 h-3.5" />
+              <span className="text-xs font-medium">Filter:</span>
+            </div>
             {categories.map((category) => {
               const isActive = selectedCategory === category;
-              const activeClass  = categoryColors[category]     ?? "bg-gray-800 text-white border-gray-800";
-              const idleClass    = categoryColorsIdle[category] ?? "text-gray-700 border-gray-300 hover:bg-gray-100";
+              const styles = categoryStyles[category] ?? categoryStyles["All"];
               return (
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`rounded-full px-4 py-2 text-sm font-semibold border-2 transition-all duration-200 cursor-pointer select-none ${
+                  className={`rounded-xl px-4 py-2 text-xs font-semibold border transition-all duration-200 cursor-pointer select-none ${
                     isActive
-                      ? `${activeClass} shadow-md scale-105 ring-2 ring-offset-2 ring-current/30`
-                      : `bg-white ${idleClass}`
+                      ? `${styles.active} shadow-sm`
+                      : `bg-white ${styles.idle}`
                   }`}
                   data-testid={`filter-category-${category.replace(/[^a-zA-Z]/g, "").toLowerCase()}`}
                 >
@@ -91,20 +113,25 @@ export function SearchAndFilter({
             })}
           </div>
 
+          {/* Filter status */}
           {(searchQuery || selectedCategory !== "All") && (
-            <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+            <motion.div
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex items-center justify-center gap-2 text-xs text-muted-foreground"
+            >
               <span>
-                Filtering by:
-                {selectedCategory !== "All" && <strong className="text-foreground ml-1">{selectedCategory}</strong>}
-                {searchQuery && <span className="ml-1">matching <strong className="text-foreground">"{searchQuery}"</strong></span>}
+                Showing results
+                {selectedCategory !== "All" && <span className="font-semibold text-foreground"> {selectedCategory}</span>}
+                {searchQuery && <span> matching <span className="font-semibold text-foreground">"{searchQuery}"</span></span>}
               </span>
               <button
-                className="text-xs underline hover:text-primary"
+                className="text-xs underline hover:text-primary font-medium"
                 onClick={() => { setSearchQuery(""); setSelectedCategory("All"); }}
               >
                 Clear all
               </button>
-            </div>
+            </motion.div>
           )}
         </motion.div>
       </div>

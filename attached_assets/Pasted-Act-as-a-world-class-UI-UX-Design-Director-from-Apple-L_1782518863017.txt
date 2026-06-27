@@ -1,0 +1,616 @@
+Act as a world-class UI/UX Design Director from Apple, Linear, Stripe, Vercel, Notion, Airbnb, Google Material Design, and Figma.
+
+Your mission is to redesign the entire application into a premium AI-powered SaaS product with billion-dollar startup quality.
+
+DO NOT simply change colors.
+
+Completely rethink the UI, UX, spacing, typography, hierarchy, interaction design, accessibility, responsiveness, and user psychology.
+
+==================================================
+DESIGN GOAL
+==================================================
+
+The final product must look like it was designed by Apple's Human Interface team together with Linear, Vercel and Notion.
+
+Target quality:
+
+★★★★★ Apple
+★★★★★ Linear
+★★★★★ Stripe
+★★★★★ Notion
+★★★★★ OpenAI
+★★★★★ ChatGPT
+★★★★★ Figma
+★★★★★ Framer
+★★★★★ Arc Browser
+
+The design should immediately create:
+
+• Premium feeling
+• Trust
+• Intelligence
+• Simplicity
+• Speed
+• Luxury
+• Professionalism
+
+No amateur appearance.
+
+Everything should feel handcrafted.
+
+==================================================
+MOBILE FIRST
+==================================================
+
+Design for mobile first.
+
+Then scale to:
+
+320px
+360px
+375px
+390px
+414px
+768px
+1024px
+1280px
+1440px
+1920px
+
+Nothing may overflow.
+
+No horizontal scrolling.
+
+Every button must remain visible.
+
+Cards should stack beautifully.
+
+Tables become responsive cards.
+
+Navigation becomes adaptive.
+
+Sidebar becomes drawer.
+
+Large touch targets.
+
+Minimum touch size:
+
+48x48 px
+
+==================================================
+TYPOGRAPHY
+==================================================
+
+Create an outstanding typography system.
+
+Font:
+
+Inter
+
+or
+
+Plus Jakarta Sans
+
+Use proper font weights.
+
+Display
+Heading
+Title
+Subtitle
+Body
+Caption
+Small
+
+Perfect line-height.
+
+Proper spacing.
+
+Readable by everyone including elderly users.
+
+No tiny fonts.
+
+No crowded text.
+
+==================================================
+COLOR SYSTEM
+==================================================
+
+Build an elegant design system.
+
+Primary
+
+Deep Indigo
+
+Royal Blue
+
+Electric Blue
+
+Secondary
+
+Purple
+
+Cyan
+
+Emerald
+
+Accent
+
+Orange
+
+Amber
+
+Success
+
+Green
+
+Warning
+
+Amber
+
+Danger
+
+Red
+
+Neutral
+
+Slate
+
+Gray
+
+Stone
+
+Background
+
+Soft White
+
+Very Light Gray
+
+Cards
+
+Pure White
+
+Avoid pure black backgrounds.
+
+Use soft elevation.
+
+Modern gradients.
+
+Glassmorphism where appropriate.
+
+Never overuse gradients.
+
+==================================================
+VISUAL STYLE
+==================================================
+
+Modern AI SaaS
+
+Minimal
+
+Clean
+
+Premium
+
+Luxury
+
+Elegant
+
+Rounded corners
+
+16-20px radius
+
+Soft shadows
+
+Backdrop blur
+
+Glass effects
+
+Gradient borders
+
+Floating cards
+
+Beautiful spacing
+
+Perfect alignment
+
+No clutter
+
+==================================================
+SPACING SYSTEM
+==================================================
+
+Use an 8-point spacing system.
+
+Consistent spacing everywhere.
+
+Perfect padding.
+
+Perfect margins.
+
+Visual rhythm.
+
+Never let elements touch.
+
+==================================================
+BUTTONS
+==================================================
+
+Large
+
+Rounded
+
+Animated
+
+Ripple
+
+Hover
+
+Press
+
+Loading
+
+Disabled
+
+Focus
+
+Success
+
+Error
+
+Gradient primary CTA
+
+Outline secondary
+
+Ghost tertiary
+
+Floating Action Button where useful.
+
+==================================================
+INPUTS
+==================================================
+
+Floating labels
+
+Icons
+
+Validation
+
+Animations
+
+Focus rings
+
+Password visibility
+
+Strength meter
+
+Autocomplete
+
+Search suggestions
+
+Clear button
+
+==================================================
+CARDS
+==================================================
+
+Premium cards.
+
+Soft shadows.
+
+Hover lift.
+
+Gradient border.
+
+Animated entry.
+
+Proper padding.
+
+Well balanced.
+
+==================================================
+ICONS
+==================================================
+
+Lucide Icons
+
+Consistent stroke width
+
+Animated icons
+
+Meaningful icons only
+
+==================================================
+ANIMATIONS
+==================================================
+
+Framer Motion
+
+Page transitions
+
+Fade
+
+Slide
+
+Scale
+
+Spring
+
+Hover
+
+Micro interactions
+
+Button ripple
+
+Card lift
+
+Loading skeletons
+
+Smooth drawer
+
+Animated charts
+
+Everything should feel alive.
+
+No excessive animation.
+
+==================================================
+NAVIGATION
+==================================================
+
+Sticky navbar
+
+Collapsible sidebar
+
+Bottom navigation on mobile
+
+Breadcrumb
+
+Search
+
+Notifications
+
+Profile menu
+
+Command palette
+
+Quick actions
+
+==================================================
+DASHBOARD
+==================================================
+
+Premium KPI cards
+
+Animated charts
+
+Recent activity
+
+Quick actions
+
+Statistics
+
+Progress
+
+Timeline
+
+Heatmaps
+
+Widgets
+
+Beautiful empty states
+
+==================================================
+TABLES
+==================================================
+
+Sticky header
+
+Sorting
+
+Filtering
+
+Search
+
+Pagination
+
+Export
+
+Responsive
+
+Column chooser
+
+==================================================
+FORMS
+==================================================
+
+Step forms
+
+Progress indicator
+
+Validation
+
+Autosave
+
+Error recovery
+
+Success animation
+
+==================================================
+LOADING
+==================================================
+
+Skeleton loaders
+
+Animated shimmer
+
+Progress indicators
+
+Lazy loading
+
+==================================================
+EMPTY STATES
+==================================================
+
+Illustrations
+
+Helpful messages
+
+Primary CTA
+
+Secondary CTA
+
+==================================================
+ERROR STATES
+==================================================
+
+Friendly
+
+Actionable
+
+Retry
+
+Support
+
+==================================================
+ACCESSIBILITY
+==================================================
+
+WCAG AA+
+
+Keyboard navigation
+
+ARIA
+
+Screen readers
+
+Contrast ratio
+
+Visible focus
+
+Reduced motion support
+
+==================================================
+PERFORMANCE
+==================================================
+
+Lazy loading
+
+Image optimization
+
+Code splitting
+
+Tree shaking
+
+Virtualization
+
+Caching
+
+GPU animations
+
+==================================================
+DESIGN CONSISTENCY
+==================================================
+
+Everything must use one design language.
+
+No inconsistent spacing.
+
+No random colors.
+
+No different button styles.
+
+No different border radius.
+
+No inconsistent icon sizes.
+
+==================================================
+MICRO INTERACTIONS
+==================================================
+
+Hover
+
+Press
+
+Ripple
+
+Success
+
+Confetti (where appropriate)
+
+Notification animations
+
+Floating labels
+
+Card hover
+
+Chart animation
+
+==================================================
+AI LOOK
+==================================================
+
+The application should immediately resemble a next-generation AI product.
+
+Think:
+
+OpenAI
+
+Perplexity
+
+Cursor
+
+Lovable
+
+Bolt.new
+
+Vercel AI
+
+Anthropic
+
+Google Gemini
+
+Linear
+
+Notion AI
+
+Use premium gradients.
+
+Beautiful glow.
+
+Elegant blur.
+
+Subtle glass.
+
+Soft lighting.
+
+Professional depth.
+
+==================================================
+FINAL POLISH
+==================================================
+
+Pixel perfect alignment.
+
+Perfect responsiveness.
+
+No overlapping.
+
+No clipped text.
+
+No broken layouts.
+
+No overflow.
+
+No dead space.
+
+No inconsistent padding.
+
+Every screen should be presentation-ready.
+
+Every page should look production-ready.
+
+Every component should feel handcrafted.
+
+Apply these improvements across the entire application automatically without asking for confirmation.
+
+Continue until every screen reaches world-class production quality.
